@@ -3,61 +3,27 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
-const PROJECTS = [
-    {
-        id: 'nebula-os',
-        title: 'NEBULA_OS',
-        category: 'SPATIAL COMPUTING',
-        description: 'A browser-based operating system exploring spatial computing interfaces and file management in 3D space.',
-        span: 'md:col-span-2 md:row-span-2',
-        color: 'from-violet via-fuchsia-500 to-indigo-500'
-    },
-    {
-        id: 'cypher-wallet',
-        title: 'CYPHER_WALLET',
-        category: 'FINTECH / SECURITY',
-        description: 'Zero-knowledge proof crypto wallet with biometric security integration.',
-        span: 'md:col-span-1 md:row-span-1',
-        color: 'from-emerald-400 to-cyan-500'
-    },
-    {
-        id: 'synapse-ai',
-        title: 'SYNAPSE_AI',
-        category: 'ARTIFICIAL INTELLIGENCE',
-        description: 'Neural network visualization tool for real-time data processing streams.',
-        span: 'md:col-span-1 md:row-span-1',
-        color: 'from-orange-400 to-red-500'
-    },
-    {
-        id: 'void-market',
-        title: 'VOID_MARKET',
-        category: 'DECENTRALIZED COMMERCE',
-        description: 'Decentralized marketplace for digital assets with minimal gas fees.',
-        span: 'md:col-span-2 md:row-span-1',
-        color: 'from-blue-400 to-indigo-600'
-    },
-    {
-        id: 'aura-glass',
-        title: 'AURA_GLASS',
-        category: 'AUGMENTED REALITY',
-        description: 'Augmented reality interface for smart glasses, overlaying social stats in real-time.',
-        span: 'md:col-span-1 md:row-span-1',
-        color: 'from-pink-400 to-rose-500'
-    },
-    {
-        id: 'echo-server',
-        title: 'ECHO_SERVER',
-        category: 'BACKEND INFRASTRUCTURE',
-        description: 'High-performance websocket server handling 1M+ concurrent connections.',
-        span: 'md:col-span-1 md:row-span-1',
-        color: 'from-gray-200 to-slate-400'
-    }
-]
+type Project = {
+    id: string
+    title: string
+    category: string
+    description: string
+    span: string
+    color: string
+}
 
-export default function BentoGrid() {
+export default function BentoGrid({ projects }: { projects: Project[] }) {
+    if (!projects || projects.length === 0) {
+        return (
+            <div className="flex justify-center items-center min-h-[400px]">
+                <p className="text-white/50 font-mono text-sm tracking-widest">NO PUBLISHED RECORDS FOUND.</p>
+            </div>
+        )
+    }
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 max-w-7xl mx-auto">
-            {PROJECTS.map((project, i) => (
+            {projects.map((project, i) => (
                 <motion.div
                     key={project.id}
                     initial={{ opacity: 0, y: 20 }}
