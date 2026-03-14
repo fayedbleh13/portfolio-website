@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { useAppStore } from '@/store/useAppStore'
 
-export default function DualNature() {
+export default function DualNature({ aboutArchitect, aboutCreator }: { aboutArchitect?: string, aboutCreator?: string }) {
     const { isInitialized } = useAppStore()
 
     if (!isInitialized) return null
@@ -31,9 +31,8 @@ export default function DualNature() {
                     <p className="font-mono text-cyan-glow/80 text-sm mb-6 tracking-widest">
             // LOGIC_CORE_INITIALIZED
                     </p>
-                    <p className="text-white/70 font-inter leading-relaxed text-lg">
-                        Obsessed with system architecture, performance optimization, and clean code.
-                        Building scalable digital infrastructures that stand the test of time.
+                    <p className="text-white/70 font-inter leading-relaxed text-lg whitespace-pre-wrap">
+                        {aboutArchitect || "Obsessed with system architecture, performance optimization, and clean code. Building scalable digital infrastructures that stand the test of time."}
                     </p>
                     <div className="flex gap-4 mt-8 justify-end text-2xl text-white/40">
                         <span title="System Design">🏗️</span>
@@ -60,9 +59,8 @@ export default function DualNature() {
                     <p className="font-serif italic text-violet/80 text-sm mb-6 tracking-widest">
                         Wait for the soul to ignite...
                     </p>
-                    <p className="text-white/70 font-inter leading-relaxed text-lg">
-                        Crafting immersive user experiences that resonate on an emotional level.
-                        Translating complex logic into fluid, beautiful interactions.
+                    <p className="text-white/70 font-inter leading-relaxed text-lg whitespace-pre-wrap">
+                        {aboutCreator || "Crafting immersive user experiences that resonate on an emotional level. Translating complex logic into fluid, beautiful interactions."}
                     </p>
                     <div className="flex gap-4 mt-8 text-2xl text-white/40">
                         <span title="UI/UX Design">✨</span>
