@@ -36,7 +36,7 @@ export default function TipTapEditor({ value, onChange }: TipTapEditorProps) {
     }
 
     return (
-        <div className="group w-full relative flex flex-col bg-white/5 border border-white/10 rounded-lg focus-within:border-violet/50 focus-within:bg-white/10 transition-all hover:bg-white/10">
+        <div className="group w-full relative flex flex-col bg-black/20 border border-white/10 rounded-lg focus-within:border-violet/50 focus-within:bg-white/5 transition-all hover:bg-white/5">
             {editor && (
                 <div className="hidden group-focus-within:flex border-b border-white/10 overflow-x-auto">
                     <button

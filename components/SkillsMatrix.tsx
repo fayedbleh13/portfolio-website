@@ -1,23 +1,17 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
+import { Skill } from "@/lib/supabase/skills";
 
-const SKILLS = [
-    { name: 'REACT / NEXT.JS', level: 95, icon: '⚛️', status: 'OPTIMIZED' },
-    { name: 'TYPESCRIPT', level: 90, icon: 'TS', status: 'STABLE' },
-    { name: 'THREE.JS / WEBGL', level: 85, icon: '🧊', status: 'RENDERING' },
-    { name: 'NODE.JS', level: 88, icon: '🟢', status: 'ACTIVE' },
-    { name: 'TAILWIND CSS', level: 98, icon: '🌊', status: 'LOADED' },
-    { name: 'GRAPHQL', level: 82, icon: '◈', status: 'CONNECTED' },
-    { name: 'POSTGRESQL', level: 85, icon: '🐘', status: 'INDEXED' },
-    { name: 'FIGMA / UI', level: 90, icon: '🎨', status: 'DESIGNING' },
-]
+interface SkillsMatrixProps {
+    skills: Skill[];
+}
 
-export default function SkillsMatrix() {
+export default function SkillsMatrix({ skills }: SkillsMatrixProps) {
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {SKILLS.map((skill, i) => (
+                {skills.map((skill, i) => (
                     <motion.div
                         key={skill.name}
                         initial={{ opacity: 0, scale: 0.95 }}
@@ -43,7 +37,10 @@ export default function SkillsMatrix() {
                             <motion.div
                                 initial={{ width: 0 }}
                                 animate={{ width: `${skill.level}%` }}
-                                transition={{ duration: 1, delay: 0.5 + i * 0.1 }}
+                                transition={{
+                                    duration: 1,
+                                    delay: 0.5 + i * 0.1,
+                                }}
                                 className="h-full bg-gradient-to-r from-violet to-cyan-glow"
                             />
                         </div>
@@ -59,5 +56,5 @@ export default function SkillsMatrix() {
                 ))}
             </div>
         </div>
-    )
+    );
 }

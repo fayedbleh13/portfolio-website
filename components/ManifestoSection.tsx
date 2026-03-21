@@ -16,7 +16,7 @@ export default function ManifestoSection() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
                     >
-                        <h3 className="text-sm font-mono text-cyan-glow tracking-[0.3em] mb-2">// PHILOSOPHY</h3>
+                        <h3 className="text-sm font-mono text-cyan-glow tracking-[0.3em] mb-2">{"//"} PHILOSOPHY</h3>
                         <h2 className="text-4xl md:text-6xl font-space-grotesk font-bold text-white mb-6">
                             THE <span className="text-gradient">MANIFESTO</span>
                         </h2>

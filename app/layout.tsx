@@ -17,6 +17,29 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Digital Soul — Portfolio',
   description: 'Emotional Engineering. A cinematic portfolio experience.',
+  metadataBase: new URL('https://portfolio-website.com'), // Update to actual domain
+  openGraph: {
+    title: 'Digital Soul — Portfolio',
+    description: 'Emotional Engineering. A cinematic portfolio experience.',
+    url: 'https://portfolio-website.com',
+    siteName: 'Digital Soul',
+    images: [
+      {
+        url: '/og-image.png', // Default Next.js OG image path
+        width: 1200,
+        height: 630,
+        alt: 'Digital Soul Portfolio',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Digital Soul — Portfolio',
+    description: 'Emotional Engineering. A cinematic portfolio experience.',
+    images: ['/og-image.png'],
+  },
 }
 
 export default function RootLayout({

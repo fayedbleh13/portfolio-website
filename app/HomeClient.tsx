@@ -1,20 +1,39 @@
-'use client'
+"use client";
 
-import { motion, AnimatePresence } from 'framer-motion'
-import { useAppStore } from '@/store/useAppStore'
-import InitializeOverlay from '@/components/InitializeOverlay'
-import HeroSection from '@/components/HeroSection'
-import DualNature from '@/components/DualNature'
-import ContactSection from '@/components/ContactSection'
-import FloatingDock from '@/components/FloatingDock'
-import ParticleOrb from '@/components/three/ParticleOrb'
+import { motion, AnimatePresence } from "framer-motion";
+import { useAppStore } from "@/store/useAppStore";
+import InitializeOverlay from "@/components/InitializeOverlay";
+import HeroSection from "@/components/HeroSection";
+import DualNature from "@/components/DualNature";
+import WorkExperienceSection from "@/components/WorkExperienceSection";
+import FeaturedProjects from "@/components/FeaturedProjects";
+import FloatingDock from "@/components/FloatingDock";
+import ParticleOrb from "@/components/three/ParticleOrb";
+
+import { WorkExperience } from "@/components/WorkExperienceSection";
+
+export type Project = {
+    id: string;
+    title: string;
+    category: string;
+    description: string;
+    image_url: string;
+    image_urls: string[];
+    project_url: string;
+    tech_tags: string[];
+    color: string;
+    span: string;
+    published: boolean;
+};
 
 type HomeClientProps = {
-    settings: Record<string, string>
-}
+    settings: Record<string, string>;
+    experiences: WorkExperience[];
+    projects: Project[];
+};
 
-export default function HomeClient({ settings }: HomeClientProps) {
-    const { isInitialized } = useAppStore()
+export default function HomeClient({ settings, experiences, projects }: HomeClientProps) {
+    const { isInitialized } = useAppStore();
 
     return (
         <main className="min-h-screen relative">
@@ -33,8 +52,14 @@ export default function HomeClient({ settings }: HomeClientProps) {
                     >
                         <section id="hero" className="h-full">
                             <HeroSection
-                                tagline={settings.hero_tagline || "Latency is the enemy."}
-                                subtitle={settings.hero_subtitle || "Re-imagining the digital frontier. \n Where logic meets emotion."}
+                                tagline={
+                                    settings.hero_tagline ||
+                                    "Latency is the enemy."
+                                }
+                                subtitle={
+                                    settings.hero_subtitle ||
+                                    "Re-imagining the digital frontier. \n Where logic meets emotion."
+                                }
                             />
                         </section>
                     </motion.div>
@@ -58,16 +83,23 @@ export default function HomeClient({ settings }: HomeClientProps) {
                             />
                         </section>
 
-                        <section id="contact">
-                            <ContactSection />
+                        <section id="experience">
+                            <WorkExperienceSection experiences={experiences} />
+                        </section>
+
+                        <section id="featured">
+                            <FeaturedProjects projects={projects} />
                         </section>
 
                         <footer className="py-8 text-center text-white/20 font-mono text-xs">
-                            <p>DESIGNED BY STITCH &bull; BUILT BY ANTIGRAVITY &bull; 2026</p>
+                            <p>
+                                DESIGNED BY STITCH &bull; BUILT BY ANTIGRAVITY
+                                &bull; 2026
+                            </p>
                         </footer>
                     </motion.div>
                 )}
             </AnimatePresence>
         </main>
-    )
+    );
 }
