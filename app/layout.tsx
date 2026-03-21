@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Space_Grotesk, Inter } from 'next/font/google'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 
 const spaceGrotesk = Space_Grotesk({
@@ -53,6 +54,7 @@ export default function RootLayout({
         className={`${spaceGrotesk.variable} ${inter.variable} antialiased bg-obsidian text-foreground selection:bg-violet selection:text-white radial-bg`}
       >
         {children}
+        <SpeedInsights />
       </body>
     </html>
   )
