@@ -17,20 +17,19 @@ export default function SettingsAdminPage() {
     const supabase = createClient()
 
     useEffect(() => {
-        fetchSettings()
-    }, [])
+        const fetchSettings = async () => {
+            const { data, error } = await supabase
+                .from('settings')
+                .select('*')
+                .order('key')
 
-    const fetchSettings = async () => {
-        const { data, error } = await supabase
-            .from('settings')
-            .select('*')
-            .order('key')
-
-        if (!error && data) {
-            setSettings(data)
+            if (!error && data) {
+                setSettings(data)
+            }
+            setIsLoading(false)
         }
-        setIsLoading(false)
-    }
+        fetchSettings()
+    }, [supabase])
 
     const handleValueChange = (key: string, newValue: string) => {
         setSettings(prev => prev.map(s => s.key === key ? { ...s, value: newValue } : s))

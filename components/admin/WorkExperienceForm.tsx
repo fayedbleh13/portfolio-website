@@ -6,46 +6,40 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 
-export type ProjectFormData = {
-    title: string
-    category: string
+export type WorkExperienceFormData = {
+    company: string
+    role: string
+    duration: string
     description: string
-    tech_tags: string
-    image_url: string
-    image_urls: string
-    project_url: string
-    color: string
-    span: string
-    published: boolean
+    technologies: string
+    featured_projects: string
     display_order: number
+    is_featured: boolean
 }
 
-interface ProjectFormProps {
-    initialData?: ProjectFormData & { id: string }
+interface WorkExperienceFormProps {
+    initialData?: WorkExperienceFormData & { id: string }
     isEditing?: boolean
 }
 
-const DEFAULT_DATA: ProjectFormData = {
-    title: '',
-    category: '',
+const DEFAULT_DATA: WorkExperienceFormData = {
+    company: '',
+    role: '',
+    duration: '',
     description: '',
-    tech_tags: '',
-    image_url: '',
-    image_urls: '',
-    project_url: '',
-    color: 'from-blue-500 to-indigo-500',
-    span: 'md:col-span-1 md:row-span-1',
-    published: false,
-    display_order: 0
+    technologies: '',
+    featured_projects: '',
+    display_order: 0,
+    is_featured: false
 }
 
-export default function ProjectForm({ initialData, isEditing = false }: ProjectFormProps) {
-    const [formData, setFormData] = useState<ProjectFormData>(
+export default function WorkExperienceForm({ initialData, isEditing = false }: WorkExperienceFormProps) {
+    const [formData, setFormData] = useState<WorkExperienceFormData>(
         initialData ? {
             ...initialData,
-            // Convert arrays back to comma-separated strings for the textareas
-            tech_tags: Array.isArray(initialData.tech_tags) ? initialData.tech_tags.join(', ') : initialData.tech_tags,
-            image_urls: Array.isArray((initialData as any).image_urls) ? (initialData as any).image_urls.join(', ') : (initialData as any).image_urls || ''
+            // Convert arrays back to comma-separated strings
+            technologies: Array.isArray(initialData.technologies) ? initialData.technologies.join(', ') : initialData.technologies,
+            featured_projects: Array.isArray(initialData.featured_projects) ? initialData.featured_projects.join(', ') : initialData.featured_projects
         } : DEFAULT_DATA
     )
     const [isSaving, setIsSaving] = useState(false)
@@ -68,29 +62,33 @@ export default function ProjectForm({ initialData, isEditing = false }: ProjectF
         setIsSaving(true)
         setError(null)
 
-        // Convert comma-separated tech tags to array
-        const techTagsArray = formData.tech_tags
+        // Convert comma-separated strings to arrays
+        const technologiesArray = formData.technologies
             .split(',')
             .map(tag => tag.trim())
             .filter(tag => tag.length > 0)
 
-        const imageUrlsArray = formData.image_urls
+        const featuredProjectsArray = formData.featured_projects
             .split(',')
-            .map(url => url.trim())
-            .filter(url => url.length > 0)
+            .map(proj => proj.trim().toLowerCase())
+            .filter(proj => proj.length > 0)
 
         const payload = {
-            ...formData,
-            tech_tags: techTagsArray,
-            image_urls: imageUrlsArray,
-            display_order: Number(formData.display_order)
+            company: formData.company,
+            role: formData.role,
+            duration: formData.duration,
+            description: formData.description,
+            technologies: technologiesArray,
+            featured_projects: featuredProjectsArray,
+            display_order: Number(formData.display_order),
+            is_featured: formData.is_featured
         }
 
         try {
             if (isEditing && initialData?.id) {
                 // Update existing
                 const { error: updateError } = await supabase
-                    .from('projects')
+                    .from('work_experiences')
                     .update(payload)
                     .eq('id', initialData.id)
 
@@ -98,13 +96,13 @@ export default function ProjectForm({ initialData, isEditing = false }: ProjectF
             } else {
                 // Insert new
                 const { error: insertError } = await supabase
-                    .from('projects')
+                    .from('work_experiences')
                     .insert([payload])
 
                 if (insertError) throw insertError
             }
 
-            router.push('/sys-init/projects')
+            router.push('/sys-init/experience')
             router.refresh()
         } catch (err: any) {
             setError(err.message || 'An error occurred while saving.')
@@ -115,20 +113,20 @@ export default function ProjectForm({ initialData, isEditing = false }: ProjectF
     const handleDelete = async () => {
         if (!isEditing || !initialData?.id) return
 
-        if (window.confirm('WARNING: Are you sure you want to delete this project? This action cannot be undone.')) {
+        if (window.confirm('WARNING: Are you sure you want to delete this work experience? This action cannot be undone.')) {
             setIsSaving(true)
             try {
                 const { error } = await supabase
-                    .from('projects')
+                    .from('work_experiences')
                     .delete()
                     .eq('id', initialData.id)
 
                 if (error) throw error
 
-                router.push('/sys-init/projects')
+                router.push('/sys-init/experience')
                 router.refresh()
             } catch (err: any) {
-                setError(err.message || 'Failed to delete project.')
+                setError(err.message || 'Failed to delete work experience.')
                 setIsSaving(false)
             }
         }
@@ -148,16 +146,16 @@ export default function ProjectForm({ initialData, isEditing = false }: ProjectF
                     <label className="flex items-center gap-2 cursor-pointer group">
                         <input
                             type="checkbox"
-                            name="published"
-                            checked={formData.published}
+                            name="is_featured"
+                            checked={formData.is_featured}
                             onChange={handleChange}
-                            className="sr-only p-4"
+                            className="sr-only"
                         />
-                        <div className={`w-10 h-5 rounded-full transition-colors relative ${formData.published ? 'bg-emerald-500' : 'bg-white/10'}`}>
-                            <div className={`absolute top-1 left-1 bg-white w-3 h-3 rounded-full transition-transform ${formData.published ? 'translate-x-5' : 'translate-x-0'}`} />
+                        <div className={`w-10 h-5 rounded-full transition-colors relative ${formData.is_featured ? 'bg-violet-500' : 'bg-white/10'}`}>
+                            <div className={`absolute top-1 left-1 bg-white w-3 h-3 rounded-full transition-transform ${formData.is_featured ? 'translate-x-5' : 'translate-x-0'}`} />
                         </div>
-                        <span className={`text-xs font-mono uppercase tracking-widest ${formData.published ? 'text-emerald-500' : 'text-white/50'}`}>
-                            {formData.published ? 'LIVE' : 'DRAFT'}
+                        <span className={`text-xs font-mono uppercase tracking-widest ${formData.is_featured ? 'text-violet-500' : 'text-white/50'}`}>
+                            {formData.is_featured ? 'FEATURED' : 'NORMAL'}
                         </span>
                     </label>
                 </div>
@@ -171,28 +169,41 @@ export default function ProjectForm({ initialData, isEditing = false }: ProjectF
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                    <label className="text-xs font-mono text-white/40 tracking-widest uppercase">Title/Designation</label>
+                    <label className="text-xs font-mono text-white/40 tracking-widest uppercase">Company/Organization</label>
                     <input
                         required
                         type="text"
-                        name="title"
-                        value={formData.title}
+                        name="company"
+                        value={formData.company}
                         onChange={handleChange}
                         className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-glow focus:bg-white/5 transition-all text-sm font-mono"
-                        placeholder="e.g. NEBULA_OS"
+                        placeholder="e.g. TECH NAVE"
                     />
                 </div>
 
                 <div className="space-y-2">
-                    <label className="text-xs font-mono text-white/40 tracking-widest uppercase">Category Classification</label>
+                    <label className="text-xs font-mono text-white/40 tracking-widest uppercase">Role/Designation</label>
                     <input
                         required
                         type="text"
-                        name="category"
-                        value={formData.category}
+                        name="role"
+                        value={formData.role}
                         onChange={handleChange}
                         className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-glow focus:bg-white/5 transition-all text-sm font-mono"
-                        placeholder="e.g. SPATIAL COMPUTING"
+                        placeholder="e.g. LEAD SOLUTIONS ARCHITECT"
+                    />
+                </div>
+
+                <div className="space-y-2 md:col-span-2">
+                    <label className="text-xs font-mono text-white/40 tracking-widest uppercase">Duration</label>
+                    <input
+                        required
+                        type="text"
+                        name="duration"
+                        value={formData.duration}
+                        onChange={handleChange}
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-glow focus:bg-white/5 transition-all text-sm font-mono"
+                        placeholder="e.g. 2023 - PRESENT"
                     />
                 </div>
 
@@ -201,87 +212,37 @@ export default function ProjectForm({ initialData, isEditing = false }: ProjectF
                     <textarea
                         required
                         name="description"
-                        rows={3}
+                        rows={4}
                         value={formData.description}
                         onChange={handleChange}
                         className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-glow focus:bg-white/5 transition-all text-sm font-sans resize-none"
+                        placeholder="Describe your achievements and responsibilities..."
                     />
                 </div>
 
                 <div className="space-y-2 md:col-span-2">
-                    <label className="text-xs font-mono text-white/40 tracking-widest uppercase">Technology Stack (Comma separated)</label>
+                    <label className="text-xs font-mono text-white/40 tracking-widest uppercase">Technologies Used (Comma separated)</label>
                     <input
                         type="text"
-                        name="tech_tags"
-                        value={formData.tech_tags}
+                        name="technologies"
+                        value={formData.technologies}
                         onChange={handleChange}
                         className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-glow focus:bg-white/5 transition-all text-sm font-mono"
-                        placeholder="React, Three.js, WebGL"
-                    />
-                </div>
-
-                <div className="space-y-2">
-                    <label className="text-xs font-mono text-white/40 tracking-widest uppercase">Thumbnail Image URL</label>
-                    <input
-                        required
-                        type="url"
-                        name="image_url"
-                        value={formData.image_url}
-                        onChange={handleChange}
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-glow focus:bg-white/5 transition-all text-sm font-mono"
-                        placeholder="https://..."
+                        placeholder="React, Three.js, Go, Kubernetes"
                     />
                 </div>
 
                 <div className="space-y-2 md:col-span-2">
-                    <label className="text-xs font-mono text-white/40 tracking-widest uppercase">Slideshow Image URLs (Comma separated)</label>
-                    <textarea
-                        name="image_urls"
-                        rows={3}
-                        value={formData.image_urls}
-                        onChange={handleChange}
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-glow focus:bg-white/5 transition-all text-sm font-sans resize-none"
-                        placeholder="https://image1.png, https://image2.png..."
-                    />
-                </div>
-
-                <div className="space-y-2">
-                    <label className="text-xs font-mono text-white/40 tracking-widest uppercase">External Link (Optional)</label>
-                    <input
-                        type="url"
-                        name="project_url"
-                        value={formData.project_url}
-                        onChange={handleChange}
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-glow focus:bg-white/5 transition-all text-sm font-mono"
-                        placeholder="https://..."
-                    />
-                </div>
-
-                <div className="space-y-2">
-                    <label className="text-xs font-mono text-white/40 tracking-widest uppercase">Bento Grid Span</label>
-                    <select
-                        name="span"
-                        value={formData.span}
-                        onChange={handleChange}
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-glow focus:bg-white/5 transition-all text-sm font-mono appearance-none"
-                    >
-                        <option value="md:col-span-1 md:row-span-1">Small (1x1)</option>
-                        <option value="md:col-span-2 md:row-span-1">Wide (2x1)</option>
-                        <option value="md:col-span-1 md:row-span-2">Tall (1x2)</option>
-                        <option value="md:col-span-2 md:row-span-2">Large (2x2)</option>
-                    </select>
-                </div>
-
-                <div className="space-y-2">
-                    <label className="text-xs font-mono text-white/40 tracking-widest uppercase">Gradient Color Mapping</label>
+                    <label className="text-xs font-mono text-white/40 tracking-widest uppercase">Featured Project IDs (Comma separated, optional)</label>
                     <input
                         type="text"
-                        name="color"
-                        value={formData.color}
+                        name="featured_projects"
+                        value={formData.featured_projects}
                         onChange={handleChange}
                         className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-glow focus:bg-white/5 transition-all text-sm font-mono"
-                        placeholder="from-violet to-cyan-500"
+                        placeholder="nexus, aether"
                     />
+                    <p className="text-[10px] font-mono text-white/30">Enter project IDs that link to this work experience.</p>
                 </div>
 
                 <div className="space-y-2">
@@ -299,7 +260,7 @@ export default function ProjectForm({ initialData, isEditing = false }: ProjectF
             <div className="flex justify-between items-center pt-6 border-t border-white/10">
                 <div className="flex items-center gap-4">
                     <Link
-                        href="/sys-init/projects"
+                        href="/sys-init/experience"
                         className="text-white/50 hover:text-white font-mono text-sm uppercase tracking-widest transition-colors"
                     >
                         Cancel

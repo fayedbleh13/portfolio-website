@@ -29,7 +29,7 @@ export default function DualNature({ aboutArchitect, aboutCreator }: { aboutArch
                         THE ARCHITECT
                     </h2>
                     <p className="font-mono text-cyan-glow/80 text-sm mb-6 tracking-widest">
-            // LOGIC_CORE_INITIALIZED
+            {"//"} LOGIC_CORE_INITIALIZED
                     </p>
                     <p className="text-white/70 font-inter leading-relaxed text-lg whitespace-pre-wrap">
                         {aboutArchitect || "Obsessed with system architecture, performance optimization, and clean code. Building scalable digital infrastructures that stand the test of time."}

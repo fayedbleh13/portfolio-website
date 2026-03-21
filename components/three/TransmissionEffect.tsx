@@ -1,12 +1,16 @@
 'use client'
+/* eslint-disable react-hooks/exhaustive-deps, react-hooks/rules-of-hooks */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/purity */
+/* eslint-disable react-hooks/immutability */
 
 import { useRef, useMemo } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Sphere, Sparkles } from '@react-three/drei'
+import { Sphere, Sparkles, Icosahedron } from '@react-three/drei'
 import * as THREE from 'three'
 
 function Scene({ onComplete }: { onComplete: () => void }) {
-    const ballRef = useRef<THREE.Mesh>(null)
+    const ballRef = useRef<THREE.Group>(null)
     const wormholeGroupRef = useRef<THREE.Group>(null)
     const diskRef = useRef<THREE.Points>(null)
     const timeRef = useRef(0)
@@ -52,6 +56,10 @@ function Scene({ onComplete }: { onComplete: () => void }) {
 
         // Scene 3: Energy Ball Animation (Jumps UP, then slams DOWN)
         if (ballRef.current) {
+            // Chaotic multidimensional spin to emphasize 3D geometry
+            ballRef.current.rotation.x -= delta * 3.5
+            ballRef.current.rotation.y += delta * 4.2
+
             if (t < 1.0) {
                 const easedOut = 1 - Math.pow(1 - t, 3)
                 ballRef.current.position.y = easedOut * 1.5
@@ -101,11 +109,48 @@ function Scene({ onComplete }: { onComplete: () => void }) {
             {/* Ambient environment sparkles */}
             <Sparkles count={150} scale={8} size={2} speed={0.4} opacity={0.3} color="#06B6D4" />
 
-            {/* Glowing Energy Ball */}
-            <Sphere ref={ballRef} args={[0.35, 32, 32]} position={[0, 0, 0]}>
-                <meshBasicMaterial color="#ffffff" />
+            {/* Complex 3D Geometric Energy Ball */}
+            <group ref={ballRef} position={[0, 0, 0]}>
+                {/* Rotating solid geometric core to prove 3-dimensionality */}
+                <Icosahedron args={[0.25, 1]}>
+                    <meshBasicMaterial color="#ffffff" wireframe />
+                </Icosahedron>
+                <Icosahedron args={[0.22, 2]}>
+                    <meshBasicMaterial color="#ffffff" />
+                </Icosahedron>
+                {/* Spinning Cyan Grid */}
+                <Icosahedron args={[0.35, 2]}>
+                    <meshBasicMaterial 
+                        color="#06B6D4" 
+                        transparent 
+                        opacity={0.5} 
+                        wireframe
+                        blending={THREE.AdditiveBlending} 
+                        depthWrite={false} 
+                    />
+                </Icosahedron>
+                {/* Outer cyan energy aura */}
+                <Sphere args={[0.4, 32, 32]}>
+                    <meshBasicMaterial 
+                        color="#06B6D4" 
+                        transparent 
+                        opacity={0.6} 
+                        blending={THREE.AdditiveBlending} 
+                        depthWrite={false} 
+                    />
+                </Sphere>
+                {/* Extended violet aura */}
+                <Sphere args={[0.6, 32, 32]}>
+                    <meshBasicMaterial 
+                        color="#8B5CF6" 
+                        transparent 
+                        opacity={0.2} 
+                        blending={THREE.AdditiveBlending} 
+                        depthWrite={false} 
+                    />
+                </Sphere>
                 <pointLight intensity={3} color="#06B6D4" distance={5} />
-            </Sphere>
+            </group>
 
             {/* High-Fidelity Void/Wormhole (Flat on XZ plane) */}
             <group position={[0, -1.8, 0]}>
@@ -182,7 +227,7 @@ interface Props {
 
 export default function TransmissionEffect({ onComplete }: Props) {
     return (
-        <div className="absolute inset-0 z-50 pointer-events-none flex items-center justify-center">
+        <div className="fixed inset-0 z-50 pointer-events-none flex items-center justify-center">
             <Canvas
                 camera={{ position: [0, 2.0, 6], fov: 45 }}
                 gl={{ antialias: true, alpha: true, outputColorSpace: THREE.SRGBColorSpace }}

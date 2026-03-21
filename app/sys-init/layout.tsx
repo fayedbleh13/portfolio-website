@@ -1,14 +1,20 @@
-import Link from 'next/link'
-import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
-import LogoutButton from './LogoutButton'
+import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+import LogoutButton from "./LogoutButton";
 
-export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+export default async function AdminLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    const supabase = await createClient();
+    const {
+        data: { user },
+    } = await supabase.auth.getUser();
 
     if (!user) {
-        redirect('/access')
+        redirect("/access");
     }
 
     return (
@@ -21,20 +27,38 @@ export default async function AdminLayout({ children }: { children: React.ReactN
                     </h2>
 
                     <nav className="space-y-4">
-                        <Link href="/sys-init" className="block text-sm font-mono text-white/50 hover:text-white transition-colors truncate">
+                        <Link
+                            href="/sys-init"
+                            className="block text-sm font-mono text-white/50 hover:text-white transition-colors truncate"
+                        >
                             [00] OVERVIEW
                         </Link>
-                        <Link href="/sys-init/projects" className="block text-sm font-mono text-white/50 hover:text-white transition-colors truncate">
+                        <Link
+                            href="/sys-init/projects"
+                            className="block text-sm font-mono text-white/50 hover:text-white transition-colors truncate"
+                        >
                             [01] PROJECTS_DB
                         </Link>
-                        <Link href="/sys-init/settings" className="block text-sm font-mono text-white/50 hover:text-white transition-colors truncate">
-                            [02] CORE_SETTINGS
+                        <Link
+                            href="/sys-init/experience"
+                            className="block text-sm font-mono text-white/50 hover:text-white transition-colors truncate"
+                        >
+                            [02] WORK_EXPERIENCE
+                        </Link>
+                        <Link
+                            href="/sys-init/settings"
+                            className="block text-sm font-mono text-white/50 hover:text-white transition-colors truncate"
+                        >
+                            [03] CORE_SETTINGS
                         </Link>
                     </nav>
                 </div>
 
                 <div className="space-y-4 pt-8 border-t border-white/10">
-                    <p className="text-xs font-mono text-white/30 truncate" title={user.email}>
+                    <p
+                        className="text-xs font-mono text-white/30 truncate"
+                        title={user.email}
+                    >
                         ID: {user.email}
                     </p>
                     <LogoutButton />
@@ -52,5 +76,5 @@ export default async function AdminLayout({ children }: { children: React.ReactN
                 </div>
             </main>
         </div>
-    )
+    );
 }

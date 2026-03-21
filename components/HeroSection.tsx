@@ -1,8 +1,10 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import ParticleOrb from './three/ParticleOrb'
+import dynamic from 'next/dynamic'
 import TypewriterText from './TypewriterText'
+
+const ParticleOrb = dynamic(() => import('./three/ParticleOrb'), { ssr: false })
 
 export default function HeroSection({ tagline, subtitle }: { tagline?: string, subtitle?: string }) {
     return (
