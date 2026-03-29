@@ -9,6 +9,8 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  // Enable compression
+  compress: true,
 }
 
 module.exports = nextConfig

@@ -4,7 +4,7 @@
 /* eslint-disable react-hooks/purity */
 /* eslint-disable react-hooks/immutability */
 
-import { useRef, useMemo, lazy, Suspense } from "react";
+import { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
@@ -24,10 +24,13 @@ function ParticleField({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
     // Track previous state to trigger explosion only once
     const wasInitialized = useRef(isInitialized);
 
-    // Generate 4000 particles
+    // Fixed particle count for stable performance
+    const particleCount = 1500; // Middle ground between performance and visual richness
+
+    // Generate particles
     const [positions, originalScatteredPositions, spherePositions] =
         useMemo(() => {
-            const count = 4000;
+            const count = particleCount;
             const pos = new Float32Array(count * 3);
             const scattered = new Float32Array(count * 3);
             const sphere = new Float32Array(count * 3);
@@ -71,7 +74,7 @@ function ParticleField({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
         }, [alwaysVisible]);
 
     // Ref for current velocities (for explosion physics)
-    const velocities = useMemo(() => new Float32Array(4000 * 3).fill(0), []);
+    const velocities = useMemo(() => new Float32Array(particleCount * 3).fill(0), []);
 
     useFrame((state) => {
         const time = state.clock.getElapsedTime();
@@ -81,7 +84,7 @@ function ParticleField({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
 
         // Only trigger explosion for non-alwaysVisible mode
         if (!alwaysVisible && !wasInitialized.current && isInitialized) {
-            for (let i = 0; i < 4000; i++) {
+            for (let i = 0; i < particleCount; i++) {
                 const i3 = i * 3;
                 const currentPos = new THREE.Vector3(
                     positions[i3],
@@ -99,7 +102,7 @@ function ParticleField({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
         }
 
         // Update Particles
-        for (let i = 0; i < 4000; i++) {
+        for (let i = 0; i < particleCount; i++) {
             const i3 = i * 3;
 
             let x = positions[i3];
@@ -204,12 +207,24 @@ function ParticleField({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
 export default function ParticleOrb({
     alwaysVisible = false,
 }: ParticleOrbProps) {
+    const [dpr, setDpr] = useState(1);
+    
+    useEffect(() => {
+        setDpr(Math.min(window.devicePixelRatio || 1, 2));
+    }, []);
+
     return (
         <div className="absolute inset-0 z-0 pointer-events-none">
-            <Canvas camera={{ position: [0, 0, 12], fov: 60 }}>
-                <Suspense fallback={null}>
-                    <ParticleField alwaysVisible={alwaysVisible} />
-                </Suspense>
+            <Canvas 
+                camera={{ position: [0, 0, 12], fov: 60 }}
+                gl={{ 
+                    antialias: false, // Disable for performance
+                    alpha: true,
+                    powerPreference: "high-performance"
+                }}
+                dpr={dpr} // Limit DPR for performance
+            >
+                <ParticleField alwaysVisible={alwaysVisible} />
                 <ambientLight intensity={0.5} />
             </Canvas>
         </div>

@@ -1,17 +1,11 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import dynamic from 'next/dynamic'
 import TypewriterText from './TypewriterText'
-
-const ParticleOrb = dynamic(() => import('./three/ParticleOrb'), { ssr: false })
 
 export default function HeroSection({ tagline, subtitle }: { tagline?: string, subtitle?: string }) {
     return (
         <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
-            {/* 3D Background */}
-            <ParticleOrb />
-
             {/* Content Overlay */}
             <div className="relative z-10 text-center px-4">
                 <motion.div

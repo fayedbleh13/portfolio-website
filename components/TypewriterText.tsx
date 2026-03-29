@@ -11,9 +11,9 @@ interface TypewriterTextProps {
 
 export default function TypewriterText({
     text,
-    speed = 50,
+    speed = 30, // Faster typing (was 50)
     className = '',
-    delay = 0,
+    delay = 200, // Small delay for visual polish (was 0)
 }: TypewriterTextProps) {
     const [displayedText, setDisplayedText] = useState('')
     const [isGlitching, setIsGlitching] = useState(false)
