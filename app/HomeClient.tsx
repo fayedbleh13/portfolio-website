@@ -2,13 +2,19 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/store/useAppStore";
+import dynamic from "next/dynamic";
 import InitializeOverlay from "@/components/InitializeOverlay";
 import HeroSection from "@/components/HeroSection";
 import DualNature from "@/components/DualNature";
 import WorkExperienceSection from "@/components/WorkExperienceSection";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import FloatingDock from "@/components/FloatingDock";
-import ParticleOrb from "@/components/three/ParticleOrb";
+
+// Lazy load heavy 3D component
+const ParticleOrb = dynamic(() => import("@/components/three/ParticleOrb"), {
+  loading: () => null,
+  ssr: false
+});
 
 import { WorkExperience } from "@/components/WorkExperienceSection";
 

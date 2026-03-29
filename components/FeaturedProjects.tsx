@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import type { Project } from '@/app/HomeClient'
 import ProjectModal from './ProjectModal'
@@ -62,14 +63,17 @@ export default function FeaturedProjects({ projects = [] }: FeaturedProjectsProp
                                 onClick={() => setSelectedProject(project)}
                             >
                                 {/* Background Image with Gradient Overlay */}
-                                <div 
-                                    className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
-                                    style={{
-                                        backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%), url(${bgImage})`,
-                                        backgroundSize: 'cover',
-                                        backgroundPosition: 'center',
-                                    }}
-                                />
+                                <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
+                                    <Image
+                                        src={bgImage}
+                                        alt={project.title}
+                                        fill
+                                        className="object-cover"
+                                        sizes="(max-width: 768px) 100vw, 100vw"
+                                        priority={index < 2}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/10" />
+                                </div>
 
                                 {/* Project Content Overlay */}
                                 <div className="absolute inset-0 p-6 md:p-10 flex flex-col justify-between">

@@ -4,7 +4,7 @@
 /* eslint-disable react-hooks/purity */
 /* eslint-disable react-hooks/immutability */
 
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, lazy, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
@@ -207,7 +207,9 @@ export default function ParticleOrb({
     return (
         <div className="absolute inset-0 z-0 pointer-events-none">
             <Canvas camera={{ position: [0, 0, 12], fov: 60 }}>
-                <ParticleField alwaysVisible={alwaysVisible} />
+                <Suspense fallback={null}>
+                    <ParticleField alwaysVisible={alwaysVisible} />
+                </Suspense>
                 <ambientLight intensity={0.5} />
             </Canvas>
         </div>

@@ -1,18 +1,23 @@
 import type { Metadata } from 'next'
 import { Space_Grotesk, Inter } from 'next/font/google'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   variable: '--font-space-grotesk',
   display: 'swap',
+  preload: true,
+  weight: ['400', '700'],
 })
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
+  preload: true,
+  weight: ['400', '500'],
 })
 
 export const metadata: Metadata = {
@@ -50,11 +55,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      </head>
       <body
         className={`${spaceGrotesk.variable} ${inter.variable} antialiased bg-obsidian text-foreground selection:bg-violet selection:text-white radial-bg`}
       >
         {children}
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   )
