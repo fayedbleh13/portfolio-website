@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
+import ScrambleText from "./ScrambleText";
 
 export interface WorkExperience {
     id: string;
@@ -75,7 +76,7 @@ export default function WorkExperienceSection({
                         viewport={{ once: true }}
                         className="text-3xl md:text-5xl font-space-grotesk font-bold text-white mb-4 text-gradient-cyan"
                     >
-                        OPERATIONAL HISTORY
+                        <ScrambleText text="OPERATIONAL HISTORY" />
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
@@ -102,7 +103,8 @@ export default function WorkExperienceSection({
                             transition={{ duration: 0.8, delay: index * 0.1 }}
                             className="group relative"
                         >
-                            <div className="glass-panel p-8 md:p-12 rounded-3xl border border-white/5 bg-black/40 hover:border-white/20 transition-all duration-500">
+                            <div className="absolute inset-0 bg-[linear-gradient(to_right,#22d3ee08_1px,transparent_1px),linear-gradient(to_bottom,#22d3ee08_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
+                            <div className="glass-panel p-8 md:p-12 rounded-3xl border border-white/5 bg-black/40 hover:border-white/20 transition-all duration-500 relative z-10">
                                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                                     <div className="space-y-4 max-w-2xl">
                                         <div className="flex items-center gap-4">
@@ -119,15 +121,23 @@ export default function WorkExperienceSection({
                                             {exp.role}
                                         </h3>
 
-                                        <p className="text-white/60 font-inter leading-relaxed">
-                                            {exp.description}
-                                        </p>
+                                        <ul className="space-y-2">
+                                            {exp.description
+                                                .split(/\.\s+/)
+                                                .filter(Boolean)
+                                                .map((point, pi) => (
+                                                    <li key={pi} className="flex gap-3 text-white/65 font-inter leading-relaxed">
+                                                        <span className="text-cyan-glow mt-1 shrink-0 text-xs">▸</span>
+                                                        <span>{point.replace(/\.$/, '')}.</span>
+                                                    </li>
+                                                ))}
+                                        </ul>
 
                                         <div className="flex flex-wrap gap-2 pt-4">
                                             {exp.technologies.map((tech) => (
                                                 <span
                                                     key={tech}
-                                                    className="text-[10px] font-mono text-white/30 border border-white/5 px-2 py-1 rounded bg-white/5"
+                                                    className="text-[10px] font-mono text-cyan-glow/70 border border-cyan-glow/20 px-2 py-1 rounded bg-cyan-glow/5 hover:bg-cyan-glow/10 hover:text-cyan-glow transition-colors"
                                                 >
                                                     {tech}
                                                 </span>

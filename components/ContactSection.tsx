@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import dynamic from "next/dynamic";
 import TipTapEditor from "./TipTapEditor";
+import ScrambleText from "./ScrambleText";
+import { LuGithub, LuLinkedin, LuPhone, LuMail } from 'react-icons/lu';
 
 const TransmissionEffect = dynamic(() => import("./three/TransmissionEffect"), { ssr: false });
 
@@ -44,10 +46,11 @@ export default function ContactSection() {
             // API Success -> Trigger Animation
             setStatus("animating");
             playWormholeAnimation();
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Transmission failed:", error);
             setStatus("idle");
-            setErrorMessage(error.message || "Transmission failed. Terminal offline.");
+            const errorMessage = error instanceof Error ? error.message : "Transmission failed. Terminal offline.";
+            setErrorMessage(errorMessage);
             
             if (errorTimeoutRef.current) clearTimeout(errorTimeoutRef.current);
             errorTimeoutRef.current = setTimeout(() => {
@@ -129,8 +132,11 @@ export default function ContactSection() {
 
             <motion.div
                 ref={containerRef}
-                className={`p-8 md:p-12 rounded-3xl w-full max-w-2xl relative z-10 mx-auto bg-[#1c1c1c] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] ${status === 'success' ? 'flex flex-col items-center justify-center min-h-[400px]' : ''}`}
+                className={`p-8 md:p-12 rounded-3xl w-full max-w-5xl relative z-10 mx-auto bg-[#1c1c1c] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] ${status === 'success' ? 'flex flex-col items-center justify-center min-h-[400px]' : ''}`}
             >
+                {/* Background Grid Accent */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#06B6D405_1px,transparent_1px),linear-gradient(to_bottom,#06B6D405_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none rounded-3xl" />
+
                 {/* Background Glow */}
                 <div className="absolute -top-40 -right-40 w-96 h-96 bg-violet/10 blur-[100px] rounded-full pointer-events-none" />
                 <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-cyan-glow/10 blur-[100px] rounded-full pointer-events-none" />
@@ -144,20 +150,46 @@ export default function ContactSection() {
                             initial={{ opacity: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
                             transition={{ duration: 0.5 }}
-                            className="w-full relative z-10"
+                            className="w-full relative z-10 grid md:grid-cols-5 gap-12"
                         >
-                            <form
-                                ref={formRef}
-                                className="space-y-6"
-                                onSubmit={handleSubmit}
-                            >
-                                <h2 className="text-3xl md:text-5xl font-space-grotesk font-bold text-white mb-2 text-center text-gradient-cyan">
-                                    ESTABLISH CONNECTION
-                                </h2>
-                                <p className="text-white/50 text-center mb-12 font-inter">
-                                    Ready to decode the future? Send a signal.
-                                </p>
+                            {/* Left Side: Info & Socials */}
+                            <div className="md:col-span-2 flex flex-col justify-between">
+                                <div>
+                                    <h2 className="text-3xl md:text-5xl font-space-grotesk font-bold text-white mb-2 uppercase tracking-tighter">
+                                        <ScrambleText text="ESTABLISH CONNECTION" />
+                                    </h2>
+                                    <p className="text-white/50 font-inter mt-4">
+                                        Ready to decode the future? Send a signal through the channels below.
+                                    </p>
+                                </div>
 
+                                <div className="mt-12 space-y-6">
+                                    <div className="flex items-center gap-4 text-white/70 hover:text-cyan-glow transition-colors">
+                                        <LuMail className="w-6 h-6" />
+                                        <a href="mailto:faemauyag13@gmail.com" className="font-mono text-sm tracking-widest uppercase">faemauyag13@gmail.com</a>
+                                    </div>
+                                    <div className="flex items-center gap-4 text-white/70 hover:text-cyan-glow transition-colors">
+                                        <LuPhone className="w-6 h-6" />
+                                        <span className="font-mono text-sm tracking-widest">+63 9457669015</span>
+                                    </div>
+                                    <div className="flex items-center gap-4 text-white/70 hover:text-violet transition-colors">
+                                        <LuGithub className="w-6 h-6" />
+                                        <a href="https://github.com/fayedbleh13" target="_blank" rel="noopener noreferrer" className="font-mono text-sm tracking-widest uppercase">github/fayedbleh13</a>
+                                    </div>
+                                    <div className="flex items-center gap-4 text-white/70 hover:text-violet transition-colors">
+                                        <LuLinkedin className="w-6 h-6" />
+                                        <a href="https://linkedin.com/in/fayedbleh13" target="_blank" rel="noopener noreferrer" className="font-mono text-sm tracking-widest uppercase">linkedin/fayedbleh13</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Right Side: Form */}
+                            <div className="md:col-span-3">
+                                <form
+                                    ref={formRef}
+                                    className="space-y-6"
+                                    onSubmit={handleSubmit}
+                                >
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-mono text-cyan-glow/70 tracking-[0.2em] uppercase">
@@ -225,7 +257,8 @@ export default function ContactSection() {
                                         </span>
                                     </button>
                                 </div>
-                            </form>
+                                </form>
+                            </div>
                         </motion.div>
                     ) : null}
 
@@ -275,7 +308,7 @@ export default function ContactSection() {
                                         });
                                     }
                                 }}
-                                className="mt-4 px-6 py-2 rounded-full border border-white/10 text-xs font-mono text-white/50 hover:text-white hover:bg-white/5 hover:border-white/20 transition-all uppercase tracking-widest"
+                                className="mt-6 px-8 py-3 rounded-full border border-white/30 text-sm font-space-grotesk font-bold text-white hover:text-white hover:bg-white/10 hover:border-cyan-glow/60 shadow-[0_4px_20px_rgba(255,255,255,0.05)] hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all uppercase tracking-widest"
                             >
                                 Initiate New Uplink
                             </button>

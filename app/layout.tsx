@@ -23,7 +23,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Digital Soul — Portfolio',
   description: 'Emotional Engineering. A cinematic portfolio experience.',
-  metadataBase: new URL('https://portfolio-website.com'), // Update to actual domain
+  metadataBase: new URL(
+    process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : 'http://localhost:3000'
+  ),
   openGraph: {
     title: 'Digital Soul — Portfolio',
     description: 'Emotional Engineering. A cinematic portfolio experience.',

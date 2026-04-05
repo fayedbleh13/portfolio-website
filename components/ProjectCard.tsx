@@ -2,7 +2,15 @@
 
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Project } from '@/data/projects'
+
+export type Project = {
+    id: string;
+    title: string;
+    category: string;
+    description: string;
+    image_url: string;
+    tech_tags: string[];
+}
 
 export default function ProjectCard({ project, index }: { project: Project, index: number }) {
     const cardRef = useRef<HTMLDivElement>(null)
@@ -31,7 +39,7 @@ export default function ProjectCard({ project, index }: { project: Project, inde
             <motion.div style={{ scale }} className="absolute inset-0 w-full h-full">
                 <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                    style={{ backgroundImage: `url(${project.imageUrl})` }}
+                    style={{ backgroundImage: `url(${project.image_url})` }}
                 />
                 <div className="absolute inset-0 bg-obsidian/40 group-hover:bg-obsidian/20 transition-colors duration-500" />
             </motion.div>
@@ -58,7 +66,7 @@ export default function ProjectCard({ project, index }: { project: Project, inde
                     </p>
 
                     <div className="flex flex-wrap gap-2">
-                        {project.techStack.map(tech => (
+                        {project.tech_tags?.map(tech => (
                             <span key={tech} className="px-3 py-1 rounded-full border border-white/10 text-xs font-mono text-white/50 bg-white/5">
                                 {tech}
                             </span>

@@ -1,17 +1,11 @@
-import { Resend } from 'resend'
-import { createClient } from '@supabase/supabase-js'
+import dynamic from "next/dynamic";
+import { Resend } from "resend";
+import { createClient } from "@supabase/supabase-js";
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-// Escape HTML utility to prevent XSS injection in email template
-const escapeHtml = (unsafe: string) => {
-    return unsafe
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
+// System ID prefix for professional logging
+const SIGNAL_PREFIX = "[NEXUS-7-SIGNAL]";
 
 export async function POST(req: Request) {
     try {
@@ -41,24 +35,42 @@ export async function POST(req: Request) {
             return Response.json({ error: 'Too many requests. Please try again later.' }, { status: 429 })
         }
 
-        // Escape outputs
-        const safeName = escapeHtml(name)
-        const safeEmail = escapeHtml(email)
-        const safeMessage = escapeHtml(message)
+        // Escape identity fields but let the message be rich HTML
+        const safeName = name.replace(/[<>]/g, ""); // Basic strip to prevent breaking layout
+        const safeEmail = email.replace(/[<>]/g, "");
 
         const data = await resend.emails.send({
-            from: 'Digital Soul <onboarding@resend.dev>',
+            from: 'Nexus OS <onboarding@resend.dev>',
             to: 'faemauyag13@gmail.com',
-            subject: `UPLINK ESTABLISHED: Message from ${safeName}`,
+            subject: `${SIGNAL_PREFIX} Message from ${safeName}`,
             html: `
-                <div style="font-family: monospace; background-color: #050505; color: #fff; padding: 40px; border: 1px solid #333;">
-                    <h2 style="color: #06B6D4; letter-spacing: 0.2em;">NEW TRANSMISSION RECEIVED</h2>
-                    <hr style="border-color: #333; margin: 20px 0;" />
-                    <p style="color: #8B5CF6; font-weight: bold;">IDENTITY: <span style="color: #fff; font-weight: normal;">${safeName}</span></p>
-                    <p style="color: #8B5CF6; font-weight: bold;">FREQUENCY (EMAIL): <span style="color: #fff; font-weight: normal;">${safeEmail}</span></p>
-                    <hr style="border-color: #333; margin: 20px 0;" />
-                    <div style="padding: 20px; background-color: rgba(255,255,255,0.05); border-left: 4px solid #06B6D4;">
-                        ${safeMessage.replace(/\n/g, '<br />')}
+                <div style="background-color: #0c0c0c; color: #d1d5db; font-family: 'Inter', system-ui, sans-serif; max-width: 600px; margin: 0 auto; border-radius: 12px; overflow: hidden; border: 1px solid #1f2937;">
+                    <div style="background-color: #111827; padding: 24px; border-bottom: 1px solid #1f2937; display: flex; align-items: center; justify-content: space-between;">
+                        <h2 style="color: #06B6D4; margin: 0; font-size: 14px; font-family: 'Space Mono', monospace; letter-spacing: 0.1em;">NEW TRANSMISSION RECEIVED</h2>
+                        <span style="color: #4b5563; font-size: 10px; font-family: 'Space Mono', monospace;">SOURCE: SYSTEM_UPLINK_v2</span>
+                    </div>
+                    
+                    <div style="padding: 32px;">
+                        <div style="margin-bottom: 32px;">
+                            <div style="font-size: 10px; color: #8B5CF6; font-family: 'Space Mono', monospace; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.15em;">Identity Parameters</div>
+                            <div style="font-size: 18px; color: #f3f4f6; font-weight: 600;">${safeName}</div>
+                        </div>
+
+                        <div style="margin-bottom: 32px;">
+                            <div style="font-size: 10px; color: #8B5CF6; font-family: 'Space Mono', monospace; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.15em;">Communication Frequency</div>
+                            <div style="font-size: 15px; color: #f3f4f6;">${safeEmail}</div>
+                        </div>
+
+                        <div style="border-top: 1px solid #1f2937; padding-top: 32px;">
+                            <div style="font-size: 10px; color: #06B6D4; font-family: 'Space Mono', monospace; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.15em;">Encoded Message Content</div>
+                            <div style="background-color: #0f172a; border-radius: 8px; padding: 24px; color: #e5e7eb; line-height: 1.6; font-size: 15px; border: 1px solid #1e293b;">
+                                ${message}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background-color: #080808; padding: 16px; text-align: center; border-top: 1px solid #1f2937;">
+                        <p style="font-size: 10px; color: #4b5563; font-family: 'Space Mono', monospace; margin: 0;">&bull; SYSTEM DEPTH CONTROL ACTIVE &bull; ALL SIGNALS ENCRYPTED &bull;</p>
                     </div>
                 </div>
             `,

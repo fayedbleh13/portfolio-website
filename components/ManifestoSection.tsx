@@ -1,6 +1,5 @@
-'use client'
-
 import { motion } from 'framer-motion'
+import ScrambleText from './ScrambleText'
 
 export default function ManifestoSection() {
     return (
@@ -16,9 +15,9 @@ export default function ManifestoSection() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
                     >
-                        <h3 className="text-sm font-mono text-cyan-glow tracking-[0.3em] mb-2">{"//"} PHILOSOPHY</h3>
-                        <h2 className="text-4xl md:text-6xl font-space-grotesk font-bold text-white mb-6">
-                            THE <span className="text-gradient">MANIFESTO</span>
+                        <h3 className="text-sm font-mono text-cyan-glow tracking-[0.3em] mb-2 uppercase">{"//"} PHILOSOPHY</h3>
+                        <h2 className="text-4xl md:text-6xl font-space-grotesk font-bold text-white mb-6 uppercase tracking-tighter">
+                            <ScrambleText text="THE MANIFESTO" />
                         </h2>
                     </motion.div>
 
@@ -27,16 +26,19 @@ export default function ManifestoSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="p-8 border-l-2 border-violet/30 bg-white/5 backdrop-blur-sm"
+                        className="group relative"
                     >
-                        <h4 className="text-2xl font-bold text-white mb-4">CODE WITH CONSCIENCE.</h4>
-                        <p className="text-white/70 font-inter leading-relaxed">
-                            We do not just build systems; we architect the nervous system of the digital age.
-                            Every line of code is a decision. Every algorithm carries weight.
-                            <br /><br />
-                            Efficiency is moral. Bloated software consumes energy, time, and attention.
-                            We strive for the elegance of absolute necessity.
-                        </p>
+                        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8B5CF608_1px,transparent_1px),linear-gradient(to_bottom,#8B5CF608_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
+                        <div className="glass-panel p-8 md:p-12 rounded-2xl border-l-4 border-l-violet/40 bg-black/40 relative z-10 transition-all duration-500 group-hover:border-l-violet" >
+                            <h4 className="text-2xl font-bold text-white mb-4 font-space-grotesk tracking-tight uppercase">CODE WITH CONSCIENCE.</h4>
+                            <p className="text-white/70 font-inter leading-relaxed">
+                                We do not just build systems; we architect the nervous system of the digital age.
+                                Every line of code is a decision. Every algorithm carries weight.
+                                <br /><br />
+                                Efficiency is moral. Bloated software consumes energy, time, and attention.
+                                We strive for the elegance of absolute necessity.
+                            </p>
+                        </div>
                     </motion.div>
                 </div>
 
