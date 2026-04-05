@@ -26,17 +26,6 @@ export default function ContactPage() {
             {/* Navigation Dock - fixed at bottom, above particles */}
             <FloatingDock alwaysShow />
 
-            {/* Footer */}
-            <motion.footer
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="absolute bottom-0 left-0 right-0 z-30 py-8 text-center text-white/20 font-mono text-xs"
-            >
-                <p>
-                    DESIGNED BY STITCH &bull; BUILT BY ANTIGRAVITY &bull; 2026
-                </p>
-            </motion.footer>
         </main>
     );
 }

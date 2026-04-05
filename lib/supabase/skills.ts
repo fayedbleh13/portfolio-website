@@ -3,9 +3,6 @@ import { createClient } from './server'
 export interface Skill {
     id: string
     name: string
-    icon: string
-    level: number
-    status: string
     category: string
     display_order: number
     is_featured: boolean

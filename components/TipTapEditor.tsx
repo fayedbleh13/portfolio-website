@@ -2,7 +2,6 @@
 
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import Underline from '@tiptap/extension-underline'
 import Placeholder from '@tiptap/extension-placeholder'
 
 interface TipTapEditorProps {
@@ -15,7 +14,6 @@ export default function TipTapEditor({ value, onChange }: TipTapEditorProps) {
         immediatelyRender: false,
         extensions: [
             StarterKit,
-            Underline,
             Placeholder.configure({
                 placeholder: 'Your message parameters...',
             }),

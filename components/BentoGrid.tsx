@@ -2,13 +2,14 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { WORK_EXPERIENCES } from "@/data/workExperience";
 
 type Project = {
     id: string;
     title: string;
     category: string;
     description: string;
+    image_url: string;
+    tech_tags: string[];
     span: string;
     color: string;
     featured?: boolean;
@@ -25,18 +26,9 @@ export default function BentoGrid({ projects }: { projects: Project[] }) {
         );
     }
 
-    // Helper to find work experience related to a project
-    const getRelatedWork = (projectId: string) => {
-        return WORK_EXPERIENCES.find((exp) =>
-            exp.featuredProjects?.includes(projectId),
-        );
-    };
-
     return (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 max-w-7xl mx-auto">
             {projects.map((project, i) => {
-                const relatedWork = getRelatedWork(project.id);
-
                 return (
                     <motion.div
                         key={project.id}
@@ -75,58 +67,12 @@ export default function BentoGrid({ projects }: { projects: Project[] }) {
 
                             {/* Tech Stack */}
                             <div className="flex flex-wrap gap-1.5 mt-4">
-                                {project.id === "nexus" && (
-                                    <>
-                                        <span className="text-[9px] font-mono text-white/30 border border-white/5 px-1.5 py-0.5 rounded">
-                                            Three.js
-                                        </span>
-                                        <span className="text-[9px] font-mono text-white/30 border border-white/5 px-1.5 py-0.5 rounded">
-                                            React
-                                        </span>
-                                        <span className="text-[9px] font-mono text-white/30 border border-white/5 px-1.5 py-0.5 rounded">
-                                            WebGL
-                                        </span>
-                                    </>
-                                )}
-                                {project.id === "aether" && (
-                                    <>
-                                        <span className="text-[9px] font-mono text-white/30 border border-white/5 px-1.5 py-0.5 rounded">
-                                            Next.js
-                                        </span>
-                                        <span className="text-[9px] font-mono text-white/30 border border-white/5 px-1.5 py-0.5 rounded">
-                                            Framer
-                                        </span>
-                                    </>
-                                )}
-                                {project.id === "chronos" && (
-                                    <>
-                                        <span className="text-[9px] font-mono text-white/30 border border-white/5 px-1.5 py-0.5 rounded">
-                                            Solidity
-                                        </span>
-                                        <span className="text-[9px] font-mono text-white/30 border border-white/5 px-1.5 py-0.5 rounded">
-                                            Ethers.js
-                                        </span>
-                                    </>
-                                )}
+                                {project.tech_tags?.map(tech => (
+                                    <span key={tech} className="text-[9px] font-mono text-white/30 border border-white/5 px-1.5 py-0.5 rounded">
+                                        {tech}
+                                    </span>
+                                ))}
                             </div>
-
-                            {/* Work Experience Context */}
-                            {relatedWork && (
-                                <div className="mt-4 pt-4 border-t border-white/5">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-violet/80" />
-                                        <span className="text-[9px] font-mono text-white/30 tracking-wider uppercase">
-                                            Deployed at
-                                        </span>
-                                    </div>
-                                    <p className="text-[10px] font-mono text-white/50">
-                                        {relatedWork.company}
-                                    </p>
-                                    <p className="text-[9px] font-mono text-white/30">
-                                        {relatedWork.duration}
-                                    </p>
-                                </div>
-                            )}
                         </div>
 
                         <div className="relative z-10 mt-4 md:mt-0 flex items-center justify-between gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
@@ -136,14 +82,6 @@ export default function BentoGrid({ projects }: { projects: Project[] }) {
                             >
                                 CASE STUDY <span className="text-lg">→</span>
                             </Link>
-                            {relatedWork && (
-                                <Link
-                                    href="/#experience"
-                                    className="text-[10px] font-mono tracking-widest text-white/40 border border-white/10 px-2 py-1 rounded hover:border-violet/50 hover:text-violet transition-colors"
-                                >
-                                    VIEW WORK
-                                </Link>
-                            )}
                         </div>
 
                         {/* Interactive Overlay */}

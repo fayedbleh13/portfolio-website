@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import type { Project } from '@/app/HomeClient'
 import ProjectModal from './ProjectModal'
-
+import ScrambleText from './ScrambleText'
 interface FeaturedProjectsProps {
     projects?: Project[]
 }
@@ -34,7 +34,7 @@ export default function FeaturedProjects({ projects = [] }: FeaturedProjectsProp
                         viewport={{ once: true }}
                         className="text-4xl md:text-6xl font-space-grotesk font-bold text-white mb-4 uppercase tracking-tighter"
                     >
-                        FEATURED PROJECTS
+                        <ScrambleText text="FEATURED PROJECTS" />
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
@@ -72,11 +72,12 @@ export default function FeaturedProjects({ projects = [] }: FeaturedProjectsProp
                                         sizes="(max-width: 768px) 100vw, 100vw"
                                         priority={index < 2}
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/10" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/10 z-10" />
+                                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#8B5CF608_1px,transparent_1px),linear-gradient(to_bottom,#8B5CF608_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none z-20" />
                                 </div>
 
                                 {/* Project Content Overlay */}
-                                <div className="absolute inset-0 p-6 md:p-10 flex flex-col justify-between">
+                                <div className="absolute inset-0 p-6 md:p-10 flex flex-col justify-between z-30">
                                     {/* Top Row: Category */}
                                     <div className="flex justify-between items-start w-full">
                                         <span className="text-xs md:text-sm font-mono tracking-widest text-white/80 uppercase border border-white/20 bg-black/30 backdrop-blur-md px-4 py-2 rounded-full">

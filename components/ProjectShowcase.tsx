@@ -1,9 +1,12 @@
 'use client'
 
-import { PROJECTS } from '@/data/projects'
-import ProjectCard from './ProjectCard'
+import ProjectCard, { Project } from './ProjectCard'
 
-export default function ProjectShowcase() {
+interface ProjectShowcaseProps {
+    projects: Project[]
+}
+
+export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
     return (
         <section className="py-32 px-4 md:px-12 max-w-7xl mx-auto">
             <div className="flex flex-col items-center mb-24">
@@ -14,7 +17,7 @@ export default function ProjectShowcase() {
             </div>
 
             <div className="flex flex-col">
-                {PROJECTS.map((project, index) => (
+                {projects?.map((project, index) => (
                     <ProjectCard key={project.id} project={project} index={index} />
                 ))}
             </div>
