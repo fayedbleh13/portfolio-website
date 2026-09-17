@@ -25,8 +25,12 @@ export const projects: Project[] = [
         category: "Full-Stack & Media",
         description:
             "Comprehensive B2B media and market intelligence platform delivering coverage on enterprise AI governance, sovereign compute, and tech ecosystems across 8 APAC regions. Features real-time trend radar, editorial CMS workflows, and Project Stargate intelligence synthesis.",
-        image_url: "/gradient-mesh-default-1.png",
-        image_urls: ["/gradient-mesh-default-1.png", "/gradient-mesh-default-2.png"],
+        image_url: "/projects/aiapac-media-1.png",
+        image_urls: [
+            "/projects/aiapac-media-1.png",
+            "/projects/aiapac-media-2.png",
+            "/projects/aiapac-media-3.png",
+        ],
         project_url: "https://staging.aiapac.net",
         tech_tags: [
             "TanStack Start",
@@ -51,8 +55,11 @@ export const projects: Project[] = [
         category: "Agentic AI & RAG",
         description:
             "Interactive prompt-based B2B intelligence assistant for APAC technology decision-makers. Implements vector search and retrieval-augmented generation (RAG) over regional regulatory frameworks, market radars, and isolated enterprise databases.",
-        image_url: "/gradient-mesh-default-2.png",
-        image_urls: ["/gradient-mesh-default-2.png", "/gradient-mesh-default-1.png"],
+        image_url: "/projects/aiapac-assistant-1.png",
+        image_urls: [
+            "/projects/aiapac-assistant-1.png",
+            "/projects/aiapac-assistant-2.png",
+        ],
         project_url: "https://assistant-demo.aiapac.net",
         tech_tags: [
             "TanStack Router",
