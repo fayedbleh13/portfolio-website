@@ -16,6 +16,27 @@ export interface WorkExperience {
  */
 export const workExperiences: WorkExperience[] = [
     {
+        id: "columns-media-asia-freelance",
+        company: "Columns Media Asia",
+        role: "Full-Stack Developer (Freelance)",
+        duration: "Apr 2026 – Sep 2026",
+        description:
+            "Architected and deployed the AI APAC media platform (staging.aiapac.net) and interactive AI Assistant demo (assistant-demo.aiapac.net). Engineered responsive interfaces with TanStack Router/Start, TailwindCSS, Lucide, and Shadcn UI. Developed high-performance backend APIs using FastAPI and Python with vector search and RAG capabilities. Configured and managed GCP cloud infrastructure including Cloud Run, Cloud SQL PostgreSQL, Cloud Storage, and Compute Engine VMs with Cloudflare CDN. Automated build pipelines and package workflows utilizing Bun and pnpm.",
+        technologies: [
+            "TanStack",
+            "FastAPI",
+            "Python",
+            "GCP",
+            "PostgreSQL",
+            "Cloudflare",
+            "OpenAI",
+            "TailwindCSS",
+        ],
+        featured_projects: ["ai-apac-media", "ai-apac-assistant"],
+        is_featured: true,
+        display_order: 1,
+    },
+    {
         id: "cytech-interim-manager",
         company: "Cytech International",
         role: "Interim Manager",
@@ -29,6 +50,6 @@ export const workExperiences: WorkExperience[] = [
             "Team Leadership",
         ],
         is_featured: true,
-        display_order: 1,
+        display_order: 2,
     },
 ];
