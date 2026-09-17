@@ -47,7 +47,7 @@ export default function DualNature({ aboutArchitect, aboutCreator }: { aboutArch
                         <div className="flex gap-4 mt-8 justify-end">
                             {architectIcons.map(({ Icon, label }) => (
                                 <div key={label} title={label} className="group/icon flex flex-col items-center gap-1">
-                                    <Icon className="w-5 h-5 text-white/30 group-hover/icon:text-violet transition-colors duration-300" />
+                                    <Icon aria-hidden="true" className="w-5 h-5 text-white/30 group-hover/icon:text-violet transition-colors duration-300" />
                                 </div>
                             ))}
                         </div>
@@ -80,7 +80,7 @@ export default function DualNature({ aboutArchitect, aboutCreator }: { aboutArch
                         <div className="flex gap-4 mt-8">
                             {creatorIcons.map(({ Icon, label }) => (
                                 <div key={label} title={label} className="group/icon flex flex-col items-center gap-1">
-                                    <Icon className="w-5 h-5 text-white/30 group-hover/icon:text-cyan-glow transition-colors duration-300" />
+                                    <Icon aria-hidden="true" className="w-5 h-5 text-white/30 group-hover/icon:text-cyan-glow transition-colors duration-300" />
                                 </div>
                             ))}
                         </div>

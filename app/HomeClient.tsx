@@ -11,27 +11,15 @@ import WorkExperienceSection from "@/components/WorkExperienceSection";
 import LeadershipSection from "@/components/LeadershipSection";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import FloatingDock from "@/components/FloatingDock";
-import { WorkExperience } from "@/components/WorkExperienceSection";
+import { WorkExperience } from "@/data/workExperiences";
+import { Project } from "@/data/projects";
+export type { Project };
 
 // Lazy load heavy 3D component — deferred to avoid blocking FCP
 const ParticleOrb = dynamic(() => import("@/components/three/ParticleOrb"), {
   loading: () => null,
   ssr: false
 });
-
-export type Project = {
-    id: string;
-    title: string;
-    category: string;
-    description: string;
-    image_url: string;
-    image_urls: string[];
-    project_url: string;
-    tech_tags: string[];
-    color: string;
-    span: string;
-    published: boolean;
-};
 
 export type HomeClientProps = {
     settings: Record<string, string>;

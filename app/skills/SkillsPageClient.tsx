@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import SkillsMatrix from "@/components/SkillsMatrix";
 import ManifestoSection from "@/components/ManifestoSection";
 import ScrambleText from "@/components/ScrambleText";
-import { Skill } from "@/lib/supabase/skills";
+import { Skill } from "@/data/skills";
 
 interface SkillsPageClientProps {
     skills: Skill[];

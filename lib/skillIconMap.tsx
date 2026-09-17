@@ -3,10 +3,11 @@ import {
     SiHtml5, SiCss, SiSass, SiBootstrap, SiMui, SiVite, SiWebpack,
     SiNodedotjs, SiExpress, SiLaravel, SiPhp, SiPython, SiDjango,
     SiMysql, SiPostgresql, SiSupabase, SiGit, SiGithub, SiGitlab,
-    SiVercel, SiDocker, SiOpenai, SiGooglegemini, SiAnthropic,
+    SiVercel, SiDocker, SiGooglegemini, SiAnthropic,
     SiVuedotjs, SiFigma, SiWordpress, SiPrisma, SiRedis, SiMongodb,
     SiFirebase, SiLinux, SiNginx, SiSqlite
 } from 'react-icons/si'
+import { RiOpenaiFill } from 'react-icons/ri'
 import { LuBrain, LuCpu, LuCode, LuCloud } from 'react-icons/lu'
 import type { IconType } from 'react-icons'
 
@@ -73,8 +74,8 @@ export const SKILL_ICON_MAP: Record<string, IconType> = {
     'Nginx': SiNginx,
 
     // AI / LLM
-    'OpenAI': SiOpenai,
-    'OpenAI API': SiOpenai,
+    'OpenAI': RiOpenaiFill,
+    'OpenAI API': RiOpenaiFill,
     'Gemini': SiGooglegemini,
     'Claude': SiAnthropic,
     'Gemini API': SiGooglegemini,

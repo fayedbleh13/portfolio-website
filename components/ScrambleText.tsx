@@ -78,10 +78,16 @@ export default function ScrambleText({
     }, [isInView, text, duration, scrambleSpeed, isComplete, isReady, delay]);
 
     return (
-        <Component ref={ref} className={`${className} inline-flex items-center gap-3 md:gap-4`}>
-            <span>{scrambled}</span>
+        <Component
+            ref={ref}
+            aria-label={text}
+            className={`${className} inline-flex items-center gap-3 md:gap-4`}
+        >
+            <span aria-hidden="true">{scrambled}</span>
+            <span className="sr-only">{text}</span>
             {useUnderscore && (
                 <motion.span
+                    aria-hidden="true"
                     initial={{ opacity: 0 }}
                     animate={isComplete ? { opacity: [1, 0, 1] } : { opacity: 1 }}
                     transition={isComplete ? {

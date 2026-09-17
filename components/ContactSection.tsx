@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import dynamic from "next/dynamic";
-import TipTapEditor from "./TipTapEditor";
 import ScrambleText from "./ScrambleText";
 import { LuGithub, LuLinkedin, LuPhone, LuMail } from 'react-icons/lu';
 
@@ -192,10 +191,14 @@ export default function ContactSection() {
                                 >
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-mono text-cyan-glow/70 tracking-[0.2em] uppercase">
+                                        <label
+                                            htmlFor="contact-name"
+                                            className="text-[10px] font-mono text-cyan-glow/70 tracking-[0.2em] uppercase"
+                                        >
                                             Identity
                                         </label>
                                         <input
+                                            id="contact-name"
                                             type="text"
                                             required
                                             disabled={status !== "idle"}
@@ -208,10 +211,14 @@ export default function ContactSection() {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-mono text-cyan-glow/70 tracking-[0.2em] uppercase">
+                                        <label
+                                            htmlFor="contact-email"
+                                            className="text-[10px] font-mono text-cyan-glow/70 tracking-[0.2em] uppercase"
+                                        >
                                             Frequency
                                         </label>
                                         <input
+                                            id="contact-email"
                                             type="email"
                                             required
                                             disabled={status !== "idle"}
@@ -226,21 +233,24 @@ export default function ContactSection() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-[10px] font-mono text-cyan-glow/70 tracking-[0.2em] uppercase">
+                                    <label
+                                        htmlFor="contact-message"
+                                        className="text-[10px] font-mono text-cyan-glow/70 tracking-[0.2em] uppercase"
+                                    >
                                         Transmission
                                     </label>
-                                    <div
-                                        className={
-                                            status !== "idle"
-                                                ? "pointer-events-none opacity-50"
-                                                : ""
+                                    <textarea
+                                        id="contact-message"
+                                        required
+                                        disabled={status !== "idle"}
+                                        value={message}
+                                        onChange={(e) =>
+                                            setMessage(e.target.value)
                                         }
-                                    >
-                                        <TipTapEditor
-                                            value={message}
-                                            onChange={setMessage}
-                                        />
-                                    </div>
+                                        placeholder="Enter transmission payload..."
+                                        rows={5}
+                                        className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/20 focus:outline-none focus:border-violet/50 focus:bg-white/5 transition-all hover:bg-white/5 disabled:opacity-50 font-mono text-sm resize-y"
+                                    />
                                 </div>
 
                                 <div className="flex justify-center pt-4">
@@ -334,6 +344,7 @@ export default function ContactSection() {
                             <button 
                                 type="button" 
                                 onClick={() => setErrorMessage("")} 
+                                aria-label="Dismiss notification"
                                 className="text-white/40 hover:text-white transition-colors"
                             >
                                 ✕

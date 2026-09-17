@@ -91,7 +91,7 @@ export default function LeadershipSection() {
                                     {highlights.map(({ Icon, stat, label }) => (
                                         <div key={label} className="flex items-start gap-3">
                                             <div className="w-8 h-8 rounded-lg bg-violet/10 border border-violet/20 flex items-center justify-center shrink-0">
-                                                <Icon className="w-4 h-4 text-violet" />
+                                                <Icon aria-hidden="true" className="w-4 h-4 text-violet" />
                                             </div>
                                             <div>
                                                 <p className="text-lg font-space-grotesk font-bold text-violet leading-none">

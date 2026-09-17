@@ -38,7 +38,10 @@ export default function FloatingDock({
             transition={{ delay: 1, type: "spring" }}
             className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40"
         >
-            <nav className="glass-panel px-6 py-3 rounded-full flex items-center gap-8 shadow-2xl backdrop-blur-xl bg-black/40">
+            <nav
+                aria-label="Main navigation"
+                className="glass-panel px-6 py-3 rounded-full flex items-center gap-8 shadow-2xl backdrop-blur-xl bg-black/40"
+            >
                 {NAV_ITEMS.map((item) => (
                     <Link
                         key={item.href}

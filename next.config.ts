@@ -1,8 +1,22 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactCompiler: true,
+  compress: true,
+  experimental: {
+    optimizePackageImports: [
+      "framer-motion",
+      "three",
+      "@react-three/fiber",
+      "@react-three/drei",
+    ],
+  },
+  images: {
+    formats: ["image/webp", "image/avif"],
+  },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
+  },
   async headers() {
     return [
       {
@@ -27,6 +41,10 @@ const nextConfig: NextConfig = {
           {
             key: "Referrer-Policy",
             value: "strict-origin-when-cross-origin",
+          },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
           },
         ],
       },

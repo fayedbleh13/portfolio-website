@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Skill } from "@/lib/supabase/skills";
+import { Skill } from "@/data/skills";
 import { getSkillIcon, getSkillColor } from "@/lib/skillIconMap";
 
 interface SkillsMatrixProps {

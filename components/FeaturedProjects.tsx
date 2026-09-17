@@ -59,7 +59,16 @@ export default function FeaturedProjects({ projects = [] }: FeaturedProjectsProp
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6, delay: index * 0.15 }}
-                                className="group relative w-full cursor-pointer h-[320px] md:h-[400px] overflow-hidden rounded-2xl"
+                                role="button"
+                                tabIndex={0}
+                                aria-label={`View project details for ${project.title}`}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        e.preventDefault();
+                                        setSelectedProject(project);
+                                    }
+                                }}
+                                className="group relative w-full cursor-pointer h-[320px] md:h-[400px] overflow-hidden rounded-2xl focus:outline-none focus:ring-2 focus:ring-cyan-glow/50"
                                 onClick={() => setSelectedProject(project)}
                             >
                                 {/* Background Image with Gradient Overlay */}

@@ -1,11 +1,9 @@
 import FloatingDock from "@/components/FloatingDock";
-import { getAllSkills } from "@/lib/supabase/skills";
+import { getAllSkills } from "@/data/skills";
 import SkillsPageClient from "./SkillsPageClient";
 
-export const dynamic = 'force-dynamic';
-
-export default async function SkillsPage() {
-    const skills = await getAllSkills();
+export default function SkillsPage() {
+    const skills = getAllSkills();
 
     return (
         <main className="min-h-screen pt-32 pb-32">

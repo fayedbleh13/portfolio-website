@@ -5,17 +5,8 @@ import { useState } from "react";
 import Link from "next/link";
 import ScrambleText from "./ScrambleText";
 
-export interface WorkExperience {
-    id: string;
-    company: string;
-    role: string;
-    duration: string;
-    description: string;
-    technologies: string[];
-    featured_projects?: string[];
-    is_featured?: boolean;
-    display_order?: number;
-}
+import { WorkExperience } from "@/data/workExperiences";
+export type { WorkExperience };
 
 interface WorkExperienceSectionProps {
     experiences: WorkExperience[];
@@ -197,6 +188,8 @@ export default function WorkExperienceSection({
                             {/* Toggle Button */}
                             <motion.button
                                 onClick={() => setIsExpanded(!isExpanded)}
+                                aria-expanded={isExpanded}
+                                aria-controls="collapsed-experiences"
                                 className="w-full py-4 glass-panel rounded-2xl border border-white/10 hover:border-cyan-glow/50 transition-all group"
                                 whileHover={{ scale: 1.01 }}
                                 whileTap={{ scale: 0.99 }}
@@ -223,6 +216,7 @@ export default function WorkExperienceSection({
                             <AnimatePresence>
                                 {isExpanded && (
                                     <motion.div
+                                        id="collapsed-experiences"
                                         initial={{ opacity: 0, height: 0 }}
                                         animate={{ opacity: 1, height: "auto" }}
                                         exit={{ opacity: 0, height: 0 }}

@@ -1,21 +1,16 @@
 import FloatingDock from "@/components/FloatingDock";
-import { createClient } from "@/lib/supabase/server";
+import { projects } from "@/data/projects";
 import ProjectsClient from "./ProjectsClient";
 
-export default async function ProjectsPage() {
-    const supabase = await createClient();
-
-    // Fetch published projects, ordered by display_order
-    const { data: projects } = await supabase
-        .from("projects")
-        .select("*")
-        .eq("published", true)
-        .order("display_order", { ascending: true });
+export default function ProjectsPage() {
+    const publishedProjects = projects
+        .filter((p) => p.published)
+        .sort((a, b) => (a.display_order ?? 0) - (b.display_order ?? 0));
 
     return (
         <main className="min-h-screen pt-32 pb-32">
             <FloatingDock alwaysShow />
-            <ProjectsClient projects={projects || []} />
+            <ProjectsClient projects={publishedProjects} />
         </main>
     );
 }
