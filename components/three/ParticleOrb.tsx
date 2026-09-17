@@ -76,27 +76,41 @@ function ParticleField({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
     // Ref for current velocities (for explosion physics)
     const velocities = useMemo(() => new Float32Array(particleCount * 3).fill(0), []);
 
+    useEffect(() => {
+        return () => {
+            if (pointsRef.current) {
+                if (pointsRef.current.geometry) {
+                    pointsRef.current.geometry.dispose();
+                }
+                if (pointsRef.current.material) {
+                    if (Array.isArray(pointsRef.current.material)) {
+                        pointsRef.current.material.forEach((m) => m.dispose());
+                    } else {
+                        pointsRef.current.material.dispose();
+                    }
+                }
+            }
+        };
+    }, []);
+
     useFrame((state) => {
         const time = state.clock.getElapsedTime();
         const mouseX = state.pointer.x * 10;
         const mouseY = state.pointer.y * 10;
-        const mouseVec = new THREE.Vector3(mouseX, mouseY, 0);
 
         // Only trigger explosion for non-alwaysVisible mode
         if (!alwaysVisible && !wasInitialized.current && isInitialized) {
             for (let i = 0; i < particleCount; i++) {
                 const i3 = i * 3;
-                const currentPos = new THREE.Vector3(
-                    positions[i3],
-                    positions[i3 + 1],
-                    positions[i3 + 2],
-                );
-                const dir = currentPos.normalize();
+                const px = positions[i3];
+                const py = positions[i3 + 1];
+                const pz = positions[i3 + 2];
+                const len = Math.sqrt(px * px + py * py + pz * pz) || 1;
                 const force = 0.5 + Math.random() * 0.5;
 
-                velocities[i3] = dir.x * force;
-                velocities[i3 + 1] = dir.y * force;
-                velocities[i3 + 2] = dir.z * force;
+                velocities[i3] = (px / len) * force;
+                velocities[i3 + 1] = (py / len) * force;
+                velocities[i3 + 2] = (pz / len) * force;
             }
             wasInitialized.current = true;
         }
@@ -130,20 +144,23 @@ function ParticleField({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
                 const flowX = Math.sin(time * 0.5 + y * 0.5) * 0.005;
                 const flowY = Math.cos(time * 0.3 + x * 0.5) * 0.005;
 
-                // Mouse Repulsion (Global)
-                const currentPos = new THREE.Vector3(x, y, z);
-                const distToMouse = currentPos.distanceTo(mouseVec);
-                let repelX = 0,
-                    repelY = 0,
-                    repelZ = 0;
+                // Mouse Repulsion (Zero GC allocations)
+                const dx = x - mouseX;
+                const dy = y - mouseY;
+                const dz = z;
+                const distSq = dx * dx + dy * dy + dz * dz;
+                let repelX = 0;
+                let repelY = 0;
+                let repelZ = 0;
 
-                if (distToMouse < 4) {
-                    const repelForce = (4 - distToMouse) / 4;
+                if (distSq < 16 && distSq > 0.0001) {
+                    const dist = Math.sqrt(distSq);
+                    const repelForce = (4 - dist) / 4;
                     const repelStrength = 0.1;
-                    const dir = currentPos.clone().sub(mouseVec).normalize();
-                    repelX = dir.x * repelForce * repelStrength;
-                    repelY = dir.y * repelForce * repelStrength;
-                    repelZ = dir.z * repelForce * repelStrength;
+                    const factor = (repelForce * repelStrength) / dist;
+                    repelX = dx * factor;
+                    repelY = dy * factor;
+                    repelZ = dz * factor;
                 }
 
                 // Elastic pull to target (drift)
@@ -180,7 +197,9 @@ function ParticleField({ alwaysVisible = false }: { alwaysVisible?: boolean }) {
             }
         }
 
-        pointsRef.current.geometry.attributes.position.needsUpdate = true;
+        if (pointsRef.current && pointsRef.current.geometry?.attributes?.position) {
+            pointsRef.current.geometry.attributes.position.needsUpdate = true;
+        }
     });
 
     return (

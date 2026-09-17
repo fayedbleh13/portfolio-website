@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import type { Project } from '@/app/HomeClient'
 import Link from 'next/link'
 
@@ -13,6 +14,14 @@ interface ProjectModalProps {
 
 export default function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
     const [currentSlide, setCurrentSlide] = useState(0)
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        setMounted(true)
+        return () => {
+            document.body.style.overflow = ''
+        }
+    }, [])
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -46,7 +55,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
         return () => { document.body.style.overflow = '' }
     }, [isOpen])
 
-    if (!project) return null
+    if (!mounted || !project) return null
 
     const images = project.image_urls?.length 
         ? project.image_urls 
@@ -55,7 +64,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
     const handleNext = () => setCurrentSlide((prev) => (prev + 1) % images.length)
     const handlePrev = () => setCurrentSlide((prev) => (prev - 1 + images.length) % images.length)
 
-    return (
+    return createPortal(
         <AnimatePresence>
             {isOpen && (
                 <motion.div
@@ -63,7 +72,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onClick={onClose}
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 md:p-8"
+                    className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md p-4 md:p-8 overflow-y-auto"
                 >
                     <motion.div
                         initial={{ scale: 0.95, opacity: 0, y: 20 }}
@@ -71,7 +80,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                         exit={{ scale: 0.95, opacity: 0, y: 20 }}
                         transition={{ duration: 0.3, ease: 'easeOut' }}
                         onClick={(e) => e.stopPropagation()}
-                        className="relative w-full max-w-7xl max-h-[92vh] flex flex-col md:flex-row bg-[#0a0a0a] rounded-2xl overflow-hidden shadow-2xl border border-white/10"
+                        className="relative w-full max-w-7xl my-auto max-h-[90vh] flex flex-col md:flex-row bg-[#0a0a0a] rounded-2xl overflow-hidden shadow-2xl border border-white/10"
                     >
                         {/* Close Button */}
                         <button
@@ -146,7 +155,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                         </div>
 
                         {/* Details Panel */}
-                        <div className="w-full md:w-2/5 lg:w-1/3 flex flex-col p-6 md:p-8 md:overflow-y-auto">
+                        <div className="w-full md:w-2/5 lg:w-1/3 flex flex-col p-6 md:p-8 overflow-y-auto max-h-[50vh] md:max-h-none">
                             <div className="flex flex-col flex-grow">
                                 <span className="text-cyan-glow font-mono text-xs uppercase tracking-[0.2em] mb-3 block">
                                     {project.category}
@@ -199,6 +208,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     </motion.div>
                 </motion.div>
             )}
-        </AnimatePresence>
+        </AnimatePresence>,
+        document.body
     )
 }

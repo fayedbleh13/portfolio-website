@@ -58,6 +58,13 @@ export default function ContactSection() {
         }
     };
 
+    // Clean up timeout on unmount
+    useEffect(() => {
+        return () => {
+            if (errorTimeoutRef.current) clearTimeout(errorTimeoutRef.current);
+        };
+    }, []);
+
     // Effect to expand container smoothly when success
     useEffect(() => {
         if (status === "success" && containerRef.current) {

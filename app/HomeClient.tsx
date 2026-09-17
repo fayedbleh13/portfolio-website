@@ -116,7 +116,7 @@ export default function HomeClient({ settings, experiences, projects }: HomeClie
             </motion.div>
 
             {/* 2. HERO: PARTICLES LOCATED HERE SO THEY SCROLL AWAY */}
-            <div className="relative h-screen overflow-hidden">
+            <div className="relative h-screen overflow-hidden snap-start scroll-mt-0">
                 <ParticleOrb />
 
                 <motion.div
@@ -149,22 +149,22 @@ export default function HomeClient({ settings, experiences, projects }: HomeClie
                     >
                         <FloatingDock />
 
-                        <motion.section id="about" style={{ y: aboutY }} className="relative z-20">
+                        <motion.section id="about" style={{ y: aboutY }} className="relative z-20 snap-start scroll-mt-16">
                             <DualNature
                                 aboutArchitect={settings.about_architect}
                                 aboutCreator={settings.about_creator}
                             />
                         </motion.section>
 
-                        <motion.section id="experience" style={{ y: expY }} className="relative z-30">
+                        <motion.section id="experience" style={{ y: expY }} className="relative z-30 snap-start scroll-mt-16">
                             <WorkExperienceSection experiences={experiences} />
                         </motion.section>
 
-                        <motion.section id="leadership" style={{ y: leadY }} className="relative z-20">
+                        <motion.section id="leadership" style={{ y: leadY }} className="relative z-20 snap-start scroll-mt-16">
                             <LeadershipSection />
                         </motion.section>
 
-                        <motion.section id="featured" style={{ y: projY }} className="relative z-10">
+                        <motion.section id="featured" style={{ y: projY }} className="relative z-10 snap-start scroll-mt-16">
                             <FeaturedProjects projects={projects} />
                         </motion.section>
 

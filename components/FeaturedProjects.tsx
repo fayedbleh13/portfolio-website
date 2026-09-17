@@ -20,7 +20,7 @@ export default function FeaturedProjects({ projects = [] }: FeaturedProjectsProp
     const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
     return (
-        <section id="featured" className="py-32 px-4 relative overflow-hidden">
+        <section className="py-32 px-4 relative overflow-hidden">
             {/* Background Accents */}
             <div className="absolute top-1/2 -left-64 w-[500px] h-[500px] bg-violet/5 blur-[120px] rounded-full pointer-events-none" />
             <div className="absolute top-1/2 -right-64 w-[500px] h-[500px] bg-cyan-glow/5 blur-[120px] rounded-full pointer-events-none" />
