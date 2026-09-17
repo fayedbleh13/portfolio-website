@@ -71,7 +71,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                         exit={{ scale: 0.95, opacity: 0, y: 20 }}
                         transition={{ duration: 0.3, ease: 'easeOut' }}
                         onClick={(e) => e.stopPropagation()}
-                        className="relative w-full max-w-6xl max-h-full flex flex-col md:flex-row bg-[#0a0a0a] rounded-xl overflow-hidden shadow-2xl border border-white/10"
+                        className="relative w-full max-w-7xl max-h-[92vh] flex flex-col md:flex-row bg-[#0a0a0a] rounded-2xl overflow-hidden shadow-2xl border border-white/10"
                     >
                         {/* Close Button */}
                         <button
@@ -83,43 +83,56 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                             </svg>
                         </button>
 
-                        {/* Image Slideshow */}
-                        <div className="relative w-full md:w-2/3 h-[40vh] md:h-[80vh] bg-black overflow-hidden flex items-center justify-center">
-                            <AnimatePresence mode="wait">
-                                <motion.img
-                                    key={currentSlide}
-                                    src={images[currentSlide]}
-                                    alt={`${project.title} slide ${currentSlide + 1}`}
-                                    initial={{ opacity: 0, scale: 1.05 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.95 }}
-                                    transition={{ duration: 0.5 }}
-                                    className="absolute inset-0 w-full h-full object-cover"
-                                />
-                            </AnimatePresence>
+                        {/* Image Slideshow (16:9 ratio preservation) */}
+                        <div className="relative w-full md:w-3/5 lg:w-2/3 min-h-[280px] md:min-h-[520px] bg-[#050505] overflow-hidden flex items-center justify-center p-3 md:p-6">
+                            {/* Ambient Blurred Backdrop for widescreen 16:9 images */}
+                            <img
+                                src={images[currentSlide]}
+                                alt=""
+                                aria-hidden="true"
+                                className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-25 scale-110 pointer-events-none"
+                            />
+
+                            {/* 16:9 Aspect Ratio Frame */}
+                            <div className="relative w-full aspect-video flex items-center justify-center rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-black/80 z-10">
+                                <AnimatePresence mode="wait">
+                                    <motion.img
+                                        key={currentSlide}
+                                        src={images[currentSlide]}
+                                        alt={`${project.title} slide ${currentSlide + 1}`}
+                                        initial={{ opacity: 0, scale: 0.98 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.98 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="w-full h-full object-contain"
+                                    />
+                                </AnimatePresence>
+                            </div>
 
                             {/* Arrows (only if multiple images) */}
                             {images.length > 1 && (
                                 <>
                                     <button
                                         onClick={handlePrev}
-                                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-black/80 text-white rounded-full backdrop-blur-sm transition-all hover:scale-110 border border-white/10 z-10"
+                                        aria-label="Previous image"
+                                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2.5 bg-black/60 hover:bg-black/90 text-white rounded-full backdrop-blur-sm transition-all hover:scale-110 border border-white/20 z-20 shadow-lg"
                                     >
-                                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                                         </svg>
                                     </button>
                                     <button
                                         onClick={handleNext}
-                                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-black/80 text-white rounded-full backdrop-blur-sm transition-all hover:scale-110 border border-white/10 z-10"
+                                        aria-label="Next image"
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2.5 bg-black/60 hover:bg-black/90 text-white rounded-full backdrop-blur-sm transition-all hover:scale-110 border border-white/20 z-20 shadow-lg"
                                     >
-                                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                         </svg>
                                     </button>
 
                                     {/* Dots */}
-                                    <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
+                                    <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-20">
                                         {images.map((_, idx) => (
                                             <button
                                                 key={idx}
@@ -133,21 +146,21 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                         </div>
 
                         {/* Details Panel */}
-                        <div className="w-full md:w-1/3 flex flex-col p-6 md:p-10 md:overflow-y-auto">
+                        <div className="w-full md:w-2/5 lg:w-1/3 flex flex-col p-6 md:p-8 md:overflow-y-auto">
                             <div className="flex flex-col flex-grow">
-                                <span className="text-cyan-glow font-mono text-xs uppercase tracking-[0.2em] mb-4 block">
+                                <span className="text-cyan-glow font-mono text-xs uppercase tracking-[0.2em] mb-3 block">
                                     {project.category}
                                 </span>
-                                <h2 className="text-3xl md:text-4xl font-space-grotesk font-bold text-white mb-6">
+                                <h2 className="text-2xl md:text-3xl font-space-grotesk font-bold text-white mb-4">
                                     {project.title}
                                 </h2>
                                 
-                                <div className="prose prose-invert prose-p:text-white/70 prose-p:leading-relaxed mb-8">
+                                <div className="prose prose-invert prose-p:text-white/70 prose-p:leading-relaxed mb-6 text-sm">
                                     <p>{project.description}</p>
                                 </div>
 
                                 {project.tech_tags && project.tech_tags.length > 0 && (
-                                    <div className="mb-10 block">
+                                    <div className="mb-8 block">
                                         <h3 className="text-white/40 font-mono text-xs uppercase tracking-widest mb-3 block">Tech Stack</h3>
                                         <div className="flex flex-wrap gap-2">
                                             {project.tech_tags.map(tag => (
@@ -160,12 +173,12 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                 )}
                             </div>
 
-                            <div className="mt-auto pt-8 border-t border-white/10 flex flex-col gap-4">
+                            <div className="mt-auto pt-6 border-t border-white/10 flex flex-col gap-3">
                                 <Link 
                                     href={`/projects/${project.id}`}
-                                    className="w-full inline-flex justify-center items-center gap-2 px-6 py-4 bg-white text-black font-space-grotesk font-bold tracking-widest uppercase rounded-lg hover:bg-cyan-glow transition-colors"
+                                    className="w-full inline-flex justify-center items-center gap-2 px-6 py-3.5 bg-white text-black font-space-grotesk font-bold text-sm tracking-widest uppercase rounded-lg hover:bg-cyan-glow transition-colors"
                                 >
-                                    Open Full Page
+                                    View Full Project
                                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                     </svg>

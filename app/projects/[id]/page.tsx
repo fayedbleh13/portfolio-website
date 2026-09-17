@@ -103,18 +103,28 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                     </div>
                 </div>
 
-                {/* Media Hero Showcase */}
-                <div className="relative w-full h-[320px] md:h-[500px] rounded-3xl overflow-hidden border border-white/10 bg-black/60 shadow-2xl">
-                    <Image
-                        src={images[0]}
-                        alt={project.title}
-                        fill
-                        priority
-                        className="object-cover"
-                        sizes="(max-width: 1024px) 100vw, 1200px"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#8B5CF608_1px,transparent_1px),linear-gradient(to_bottom,#8B5CF608_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
+                {/* Media Hero Showcase (16:9 Aspect Ratio) */}
+                <div className="relative w-full aspect-video rounded-3xl overflow-hidden border border-white/10 bg-[#050505] shadow-2xl flex items-center justify-center p-2 md:p-4">
+                    {/* Ambient Blurred Backdrop */}
+                    <div className="absolute inset-0 overflow-hidden">
+                        <Image
+                            src={images[0]}
+                            alt=""
+                            fill
+                            aria-hidden="true"
+                            className="object-cover blur-2xl opacity-20 scale-110 pointer-events-none"
+                        />
+                    </div>
+                    <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl z-10">
+                        <Image
+                            src={images[0]}
+                            alt={project.title}
+                            fill
+                            priority
+                            className="object-contain"
+                            sizes="(max-width: 1024px) 100vw, 1200px"
+                        />
+                    </div>
                 </div>
 
                 {/* Tech Stack Grid */}
@@ -144,15 +154,17 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                             {images.slice(1).map((imgUrl, i) => (
                                 <div
                                     key={i}
-                                    className="relative h-64 rounded-2xl overflow-hidden border border-white/10 bg-black/40"
+                                    className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-[#050505] p-2 flex items-center justify-center"
                                 >
-                                    <Image
-                                        src={imgUrl}
-                                        alt={`${project.title} preview ${i + 2}`}
-                                        fill
-                                        className="object-cover"
-                                        sizes="(max-width: 768px) 100vw, 50vw"
-                                    />
+                                    <div className="relative w-full h-full rounded-xl overflow-hidden">
+                                        <Image
+                                            src={imgUrl}
+                                            alt={`${project.title} preview ${i + 2}`}
+                                            fill
+                                            className="object-contain"
+                                            sizes="(max-width: 768px) 100vw, 50vw"
+                                        />
+                                    </div>
                                 </div>
                             ))}
                         </div>

@@ -21,9 +21,12 @@ export const workExperiences: WorkExperience[] = [
         role: "Full-Stack Developer (Freelance)",
         duration: "Apr 2026 – Sep 2026",
         description:
-            "Architected and deployed the AI APAC media platform (staging.aiapac.net) and interactive AI Assistant demo (assistant-demo.aiapac.net). Engineered responsive interfaces with TanStack Router/Start, TailwindCSS, Lucide, and Shadcn UI. Developed high-performance backend APIs using FastAPI and Python with vector search and RAG capabilities. Configured and managed GCP cloud infrastructure including Cloud Run, Cloud SQL PostgreSQL, Cloud Storage, and Compute Engine VMs with Cloudflare CDN. Automated build pipelines and package workflows utilizing Bun and pnpm.",
+            "Architected and deployed the AI APAC media platform (staging.aiapac.net) and interactive AI Assistant demo (assistant-demo.aiapac.net). Engineered responsive interfaces with TanStack Start, TanStack Router, TailwindCSS, Lucide, and Shadcn UI. Developed high-performance backend microservices using Hono on Bun.js and FastAPI/Python with vector search and RAG capabilities. Configured and managed GCP cloud infrastructure including Cloud Run, Cloud SQL PostgreSQL, Cloud Storage, and Compute Engine VMs with Cloudflare CDN. Automated build pipelines and package workflows utilizing Bun and pnpm.",
         technologies: [
+            "TanStack Start",
             "TanStack",
+            "Hono",
+            "Bun",
             "FastAPI",
             "Python",
             "GCP",

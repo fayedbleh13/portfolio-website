@@ -28,7 +28,7 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
                     <ScrambleText text="PROJECT ARCHIVE" duration={1.5} />
                 </h1>
                 <p className="text-white/50 font-mono text-sm tracking-widest max-w-2xl mx-auto">
-                    ENGINEERING DIGITAL EXPERIENCES AT THE INTERSECTION OF AESTHETICS AND PURE LOGIC.
+                    WEB APPLICATIONS, AI SYSTEMS, AND PLATFORMS BUILT FOR PRODUCTION.
                 </p>
             </div>
             <BentoGrid projects={projects} />

@@ -20,7 +20,7 @@ export default function BentoGrid({ projects }: { projects: Project[] }) {
         return (
             <div className="flex justify-center items-center min-h-[400px]">
                 <p className="text-white/50 font-mono text-sm tracking-widest">
-                    NO PUBLISHED RECORDS FOUND.
+                    NO PUBLISHED PROJECTS FOUND.
                 </p>
             </div>
         );
@@ -80,7 +80,7 @@ export default function BentoGrid({ projects }: { projects: Project[] }) {
                                 href={`/projects/${project.id}`}
                                 className="text-xs font-mono tracking-widest text-cyan-glow flex items-center gap-2 hover:text-white transition-colors"
                             >
-                                CASE STUDY <span className="text-lg">→</span>
+                                VIEW PROJECT <span className="text-lg">→</span>
                             </Link>
                         </div>
 

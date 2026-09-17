@@ -7,7 +7,7 @@ import {
     SiVuedotjs, SiFigma, SiWordpress, SiPrisma, SiRedis, SiMongodb,
     SiFirebase, SiLinux, SiNginx, SiSqlite,
     SiFastapi, SiCloudflare, SiGooglecloud, SiBun, SiPnpm, SiShadcnui,
-    SiLucide, SiTanstack
+    SiLucide, SiTanstack, SiHono
 } from 'react-icons/si'
 import { RiOpenaiFill } from 'react-icons/ri'
 import { LuBrain, LuCpu, LuCode, LuCloud } from 'react-icons/lu'
@@ -31,6 +31,7 @@ export const SKILL_ICON_MAP: Record<string, IconType> = {
     // Frontend (Variations/Extras)
     'React': SiReact,
     'Next.js': SiNextdotjs,
+    'TanStack Start': SiTanstack,
     'TanStack Router': SiTanstack,
     'TanStack': SiTanstack,
     'Shadcn UI': SiShadcnui,
@@ -49,6 +50,7 @@ export const SKILL_ICON_MAP: Record<string, IconType> = {
     'NodeJS': SiNodedotjs,
     'Node.js': SiNodedotjs,
     'FastAPI': SiFastapi,
+    'Hono': SiHono,
     'Python': SiPython,
     'Django': SiDjango,
     'PHP': SiPhp,
@@ -115,6 +117,7 @@ export const SKILL_COLOR_MAP: Record<string, string> = {
     'React': '#61DAFB',
     'NextJS': '#ffffff',
     'Next.js': '#ffffff',
+    'TanStack Start': '#FF4154',
     'TanStack Router': '#FF4154',
     'TanStack': '#FF4154',
     'Shadcn UI': '#ffffff',
@@ -129,6 +132,7 @@ export const SKILL_COLOR_MAP: Record<string, string> = {
     'NodeJS': '#339933',
     'Node.js': '#339933',
     'FastAPI': '#009688',
+    'Hono': '#E36002',
     'Python': '#3776AB',
     'Django': '#092E20',
     'PHP': '#777BB4',

@@ -43,7 +43,7 @@ export default function FeaturedProjects({ projects = [] }: FeaturedProjectsProp
                         transition={{ delay: 0.1 }}
                         className="text-white/40 font-mono text-sm tracking-[0.3em] uppercase max-w-2xl"
                     >
-                        Selected Deployments & Technical Achievements
+                        Production platforms, client applications, and systems.
                     </motion.p>
                 </div>
 
@@ -104,7 +104,7 @@ export default function FeaturedProjects({ projects = [] }: FeaturedProjectsProp
                                             ↗
                                         </div>
                                         <div className="hidden md:flex items-center gap-2 px-6 py-3 bg-white text-black font-mono text-sm rounded-full font-bold uppercase tracking-widest hover:bg-cyan-glow transition-colors shrink-0">
-                                            CASE STUDY ↗
+                                            VIEW PROJECT ↗
                                         </div>
                                     </div>
                                 </div>
