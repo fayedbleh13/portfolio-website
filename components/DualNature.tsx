@@ -38,7 +38,7 @@ export default function DualNature({ aboutArchitect, aboutCreator }: { aboutArch
                                 <ScrambleText text="THE ARCHITECT" />
                             </h2>
                             <p className="font-mono text-cyan-glow/80 text-sm mb-6 tracking-widest">
-                                {'//'} LOGIC_CORE_INITIALIZED
+                                {'//'} Currently: Interim Manager, Cytech
                             </p>
                             <p className="text-white/70 font-inter leading-relaxed whitespace-pre-wrap">
                                 {aboutArchitect || "Obsessed with system architecture, performance optimization, and clean code. Building scalable digital infrastructures that stand the test of time."}
@@ -70,8 +70,8 @@ export default function DualNature({ aboutArchitect, aboutCreator }: { aboutArch
                             <h2 className="text-4xl md:text-5xl font-space-grotesk font-bold text-white mb-4">
                                 <ScrambleText text="THE CREATOR" />
                             </h2>
-                            <p className="font-serif italic text-violet/80 text-sm mb-6 tracking-widest">
-                                Wait for the soul to ignite...
+                            <p className="font-mono text-violet/80 text-sm mb-6 tracking-widest">
+                                {'//'} Currently: UI/UX + Motion
                             </p>
                             <p className="text-white/70 font-inter leading-relaxed whitespace-pre-wrap">
                                 {aboutCreator || "Crafting immersive user experiences that resonate on an emotional level. Translating complex logic into fluid, beautiful interactions."}

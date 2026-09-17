@@ -4,14 +4,14 @@
  */
 export const settings = {
     // Hero Section
-    hero_tagline: "Latency is the enemy.",
-    hero_subtitle: "Re-imagining the digital frontier.\n Where logic meets emotion.",
+    hero_tagline: "Full-Stack Developer · Philippines",
+    hero_subtitle: "Building fast, purposeful web systems\n— with a designer's eye.",
 
     // About Section (DualNature component)
     about_architect:
-        "Obsessed with system architecture, performance optimization, and clean code. Building scalable digital infrastructures that stand the test of time.",
+        "I care about the system behind the feature — the latency, the failure modes, the cost. I build things I won't be embarrassed by when they break in production at 3am.",
     about_creator:
-        "Crafting immersive user experiences that resonate on an emotional level. Translating complex logic into fluid, beautiful interactions.",
+        "I've been designing interfaces since before I could name the discipline. If something looks off by 4px, I'll notice — and fix it before anyone asks.",
 } as const;
 
 export type Settings = typeof settings;

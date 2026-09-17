@@ -10,8 +10,8 @@ const highlights = [
     },
     {
         Icon: LuTrendingUp,
-        stat: '90%',
-        label: 'Projected productivity gain',
+        stat: 'Adopted',
+        label: 'Agentic workflow — implemented company-wide',
     },
     {
         Icon: LuBrain,
@@ -23,7 +23,7 @@ const highlights = [
 const achievements = [
     'Spearheaded the rapid deployment of a high-priority initiative under tight deadlines',
     'Supervised and mentored a team of three junior developers through complex deliverables',
-    'Proposed an agentic workflow solution projected to boost company productivity by 90%',
+    'Proposed and implemented an agentic workflow solution adopted company-wide',
     'Initiated and oversaw an AI Code Reviewer integrated with GitLab, reducing production bugs by 35%',
 ]
 

@@ -67,7 +67,7 @@ export default function WorkExperienceSection({
                         viewport={{ once: true }}
                         className="text-3xl md:text-5xl font-space-grotesk font-bold text-white mb-4 text-gradient-cyan"
                     >
-                        <ScrambleText text="OPERATIONAL HISTORY" />
+                        <ScrambleText text="WORK EXPERIENCE" />
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
@@ -76,7 +76,7 @@ export default function WorkExperienceSection({
                         transition={{ delay: 0.1 }}
                         className="text-white/40 font-mono text-sm tracking-[0.3em] uppercase"
                     >
-                        Professional Milestones & Technical Deployments
+                        Roles, companies, and what I built.
                     </motion.p>
                 </div>
 

@@ -21,7 +21,7 @@ export default function HeroSection({ tagline, subtitle }: { tagline?: string, s
 
                 <h1 className="text-6xl md:text-9xl font-bold font-space-grotesk tracking-tighter mb-6 relative z-10 text-gradient uppercase">
                     <ScrambleText 
-                        text="DIGITAL SOUL" 
+                        text="FAYED MAUYAG" 
                         duration={0.8} 
                         isReady={isInitialized} 
                         delay={400} 

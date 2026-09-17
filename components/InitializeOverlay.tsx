@@ -42,6 +42,14 @@ export default function InitializeOverlay() {
             className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-transparent text-foreground overflow-hidden"
         >
             <div className="text-center z-10 space-y-8">
+                <div className="text-center select-none">
+                    <h1 className="text-4xl md:text-5xl font-space-grotesk font-bold text-white tracking-tighter">
+                        Fayed Mauyag
+                    </h1>
+                    <p className="text-xs font-mono text-white/50 tracking-[0.3em] uppercase mt-2">
+                        Full-Stack Developer
+                    </p>
+                </div>
                 <div className="relative">
                     <button
                         ref={buttonRef}

@@ -155,10 +155,10 @@ export default function ContactSection() {
                             <div className="md:col-span-2 flex flex-col justify-between">
                                 <div>
                                     <h2 className="text-3xl md:text-5xl font-space-grotesk font-bold text-white mb-2 uppercase tracking-tighter">
-                                        <ScrambleText text="ESTABLISH CONNECTION" />
+                                        <ScrambleText text="GET IN TOUCH" />
                                     </h2>
-                                    <p className="text-white/50 font-inter mt-4">
-                                        Ready to decode the future? Send a signal through the channels below.
+                                    <p className="text-white/50 font-inter mt-4 leading-relaxed">
+                                        Open to full-time roles, freelance projects, and interesting conversations. I reply within 24 hours.
                                     </p>
                                 </div>
 
@@ -195,7 +195,7 @@ export default function ContactSection() {
                                             htmlFor="contact-name"
                                             className="text-[10px] font-mono text-cyan-glow/70 tracking-[0.2em] uppercase"
                                         >
-                                            Identity
+                                            Name
                                         </label>
                                         <input
                                             id="contact-name"
@@ -206,7 +206,7 @@ export default function ContactSection() {
                                             onChange={(e) =>
                                                 setName(e.target.value)
                                             }
-                                            placeholder="Name or Alias"
+                                            placeholder="Your name"
                                             className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-violet/50 focus:bg-white/5 transition-all hover:bg-white/5 disabled:opacity-50"
                                         />
                                     </div>
@@ -215,7 +215,7 @@ export default function ContactSection() {
                                             htmlFor="contact-email"
                                             className="text-[10px] font-mono text-cyan-glow/70 tracking-[0.2em] uppercase"
                                         >
-                                            Frequency
+                                            Email
                                         </label>
                                         <input
                                             id="contact-email"
@@ -226,7 +226,7 @@ export default function ContactSection() {
                                             onChange={(e) =>
                                                 setEmail(e.target.value)
                                             }
-                                            placeholder="Email Address"
+                                            placeholder="your.email@example.com"
                                             className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-violet/50 focus:bg-white/5 transition-all hover:bg-white/5 disabled:opacity-50"
                                         />
                                     </div>
@@ -237,7 +237,7 @@ export default function ContactSection() {
                                         htmlFor="contact-message"
                                         className="text-[10px] font-mono text-cyan-glow/70 tracking-[0.2em] uppercase"
                                     >
-                                        Transmission
+                                        Message
                                     </label>
                                     <textarea
                                         id="contact-message"
@@ -247,7 +247,7 @@ export default function ContactSection() {
                                         onChange={(e) =>
                                             setMessage(e.target.value)
                                         }
-                                        placeholder="Enter transmission payload..."
+                                        placeholder="What's on your mind?"
                                         rows={5}
                                         className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/20 focus:outline-none focus:border-violet/50 focus:bg-white/5 transition-all hover:bg-white/5 disabled:opacity-50 font-mono text-sm resize-y"
                                     />
@@ -262,8 +262,8 @@ export default function ContactSection() {
                                         <div className="absolute inset-0 bg-gradient-to-r from-violet via-cyan-glow to-deep-indigo bg-[length:200%_auto] opacity-0 group-hover:opacity-20 transition-opacity duration-500 animate-gradient-shift" />
                                         <span className="relative z-10 font-space-grotesk font-bold tracking-widest text-white">
                                             {status === "submitting"
-                                                ? "UPLINKING..."
-                                                : "INITIATE UPLINK"}
+                                                ? "SENDING..."
+                                                : "SEND MESSAGE"}
                                         </span>
                                     </button>
                                 </div>
@@ -289,13 +289,12 @@ export default function ContactSection() {
                                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-glow/10 to-transparent pointer-events-none" />
                                 <div className="w-2 h-2 rounded-full bg-cyan-glow animate-pulse" />
                                 <span className="font-space-grotesk font-bold tracking-widest text-cyan-glow text-sm uppercase">
-                                    TRANSMISSION SUCCESSFUL
+                                    MESSAGE SENT
                                 </span>
                             </div>
 
                             <p className="text-white/40 font-mono text-sm max-w-sm">
-                                Signal routed safely through the nexus. Stand by
-                                for response.
+                                Got it. I&apos;ll get back to you shortly.
                             </p>
 
                             <button
@@ -320,7 +319,7 @@ export default function ContactSection() {
                                 }}
                                 className="mt-6 px-8 py-3 rounded-full border border-white/30 text-sm font-space-grotesk font-bold text-white hover:text-white hover:bg-white/10 hover:border-cyan-glow/60 shadow-[0_4px_20px_rgba(255,255,255,0.05)] hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all uppercase tracking-widest"
                             >
-                                Initiate New Uplink
+                                Send Another Message
                             </button>
                         </motion.div>
                     )}

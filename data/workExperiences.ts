@@ -21,7 +21,7 @@ export const workExperiences: WorkExperience[] = [
         role: "Interim Manager",
         duration: "Nov 2025 – Mar 2026",
         description:
-            "Directed technical operations, spearheaded system architecture modernization, and accelerated delivery cycles across cross-functional engineering teams.",
+            "Managed day-to-day technical operations and served as the team's primary point of escalation. Mentored three junior developers through complex deliverables, conducting regular code reviews. Spearheaded a high-priority feature deployment under a tight deadline, shipping on schedule. Proposed and implemented an agentic CI/CD workflow adopted company-wide. Integrated an AI Code Reviewer into GitLab pipelines, reducing production bugs by 35%.",
         technologies: [
             "TypeScript",
             "Next.js",

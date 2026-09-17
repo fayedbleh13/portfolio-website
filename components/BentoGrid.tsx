@@ -88,6 +88,8 @@ export default function BentoGrid({ projects }: { projects: Project[] }) {
                         <Link
                             href={`/projects/${project.id}`}
                             className="absolute inset-0 z-20"
+                            aria-hidden="true"
+                            tabIndex={-1}
                         />
                     </motion.div>
                 );

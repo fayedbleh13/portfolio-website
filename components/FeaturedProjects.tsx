@@ -95,12 +95,15 @@ export default function FeaturedProjects({ projects = [] }: FeaturedProjectsProp
                                     </div>
 
                                     {/* Bottom Row: Title + CTA */}
-                                    <div className="flex justify-between items-end w-full translate-y-4 opacity-90 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                                    <div className="flex justify-between items-end w-full translate-y-0 md:translate-y-4 opacity-100 md:opacity-90 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500 gap-4">
                                         <h3 className="text-3xl md:text-5xl font-space-grotesk font-bold text-white max-w-2xl leading-tight">
                                             {project.title}
                                         </h3>
                                         
-                                        <div className="hidden md:flex items-center gap-2 px-6 py-3 bg-white text-black font-mono text-sm rounded-full font-bold uppercase tracking-widest hover:bg-cyan-glow transition-colors">
+                                        <div className="flex md:hidden items-center justify-center w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-mono text-base shrink-0">
+                                            ↗
+                                        </div>
+                                        <div className="hidden md:flex items-center gap-2 px-6 py-3 bg-white text-black font-mono text-sm rounded-full font-bold uppercase tracking-widest hover:bg-cyan-glow transition-colors shrink-0">
                                             CASE STUDY ↗
                                         </div>
                                     </div>

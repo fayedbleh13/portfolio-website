@@ -30,13 +30,11 @@ export default function ManifestoSection() {
                     >
                         <div className="absolute inset-0 bg-[linear-gradient(to_right,#8B5CF608_1px,transparent_1px),linear-gradient(to_bottom,#8B5CF608_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
                         <div className="glass-panel p-8 md:p-12 rounded-2xl border-l-4 border-l-violet/40 bg-black/40 relative z-10 transition-all duration-500 group-hover:border-l-violet" >
-                            <h4 className="text-2xl font-bold text-white mb-4 font-space-grotesk tracking-tight uppercase">CODE WITH CONSCIENCE.</h4>
+                            <h4 className="text-2xl font-bold text-white mb-4 font-space-grotesk tracking-tight uppercase">BUILD FOR THE PERSON, NOT THE SPEC.</h4>
                             <p className="text-white/70 font-inter leading-relaxed">
-                                We do not just build systems; we architect the nervous system of the digital age.
-                                Every line of code is a decision. Every algorithm carries weight.
+                                Software isn&apos;t evaluated by its architecture diagram — it&apos;s evaluated by the person waiting for it to load on spotty mobile data, or the developer reading it at 11pm trying to fix a production bug.
                                 <br /><br />
-                                Efficiency is moral. Bloated software consumes energy, time, and attention.
-                                We strive for the elegance of absolute necessity.
+                                At Cytech, stepping in as Interim Manager taught me that the hardest engineering problems aren&apos;t technical — they&apos;re clarity problems. Clear code, clear interfaces, clear communication.
                             </p>
                         </div>
                     </motion.div>
@@ -46,12 +44,12 @@ export default function ManifestoSection() {
                 <div className="space-y-10 pt-12">
                     {[
                         {
-                            title: "Latency is the Enemy",
-                            desc: "In a realtime world, delay is disconnection. We optimize for the millisecond, pushing the boundaries of WebAssembly and edge computing to deliver experiences that feel instantaneous."
+                            title: "Speed is respect.",
+                            desc: "Every millisecond of latency is time taken from someone who didn't ask to spend it waiting. I treat performance as a core feature, not a post-launch cleanup task — whether that means optimizing bundle sizes, minimizing layout shifts, or moving compute to the edge."
                         },
                         {
-                            title: "Transparency by Design",
-                            desc: "Open source is not a choice; it's a responsibility. We build in the light. Our architecture is self-documenting, our patterns are predictable, and our chaos is controlled."
+                            title: "Readable code is a feature.",
+                            desc: "Clever code is an indulgence. I write software meant to be maintained by someone else — with predictable patterns, self-documenting structure, and explicit decisions over hidden magic."
                         }
                     ].map((item, i) => (
                         <motion.div
